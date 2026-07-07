@@ -385,6 +385,8 @@ def create_deck():
         ("85% Less Wear & Tear:", " Decreases mechanical engine parts wear by up to 85% by creating a resilient lubricant boundary layer."),
         ("5x Extended Oil Life:", " Reduces oil degradation and contamination, extending oil changes by 5 times. Saves ₹15,000+ annually for typical drivers."),
         ("5x Extended Engine Life:", " Protects internal pistons and valves from micro-abrasions and heat stress."),
+        ("50% Improved Gearbox Life:", " Reduces transmission wear and friction, enhancing gear operation and extending gearbox service life by up to 50%."),
+        ("20% Longer Tyre Life:", " Promotes smoother power delivery and reduced drivetrain stress, contributing to up to 20% longer tyre life."),
         ("Refined Smoothness:", " Drops engine noise by 60% and vibrations by 40% on rough roads. Enhances vehicle AC performance by up to 60% by easing engine strain.")
     ]
     
@@ -392,7 +394,7 @@ def create_deck():
         p_b = tf_left6.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
-        p_b.font.size = Pt(13)
+        p_b.font.size = Pt(11)
         p_b.font.color.rgb = CYAN
         
         run = p_b.add_run()
@@ -403,9 +405,9 @@ def create_deck():
         run2 = p_b.add_run()
         run2.text = text
         run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(10)
+        p_b.space_after = Pt(6)
         
-    add_slide_picture(slide6, "piston_wear.png", CYAN)
+    add_slide_picture(slide6, "drivetrain_wear.png", CYAN)
 
     # ==========================================
     # SLIDE 7: MISSION LIFE & CLEAN AIR (NCAP)
@@ -547,7 +549,7 @@ def create_deck():
     add_slide_picture(slide9, "universal_vehicles.png", CYAN)
 
     # Save presentation
-    output_filename = "What is our Product - India.pptx"
+    output_filename = "What is our Product - India_visual.pptx"
     prs.save(output_filename)
     print(f"Presentation saved successfully as {output_filename}")
 
