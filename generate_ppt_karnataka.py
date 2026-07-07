@@ -75,7 +75,7 @@ def create_deck():
             slide.shapes.add_picture(img_path, Inches(7.6), Inches(1.9), width=Inches(4.8), height=Inches(4.3))
 
     # ==========================================
-    # SLIDE 1: TITLE SLIDE
+    # SLIDE 1: TITLE SLIDE (Karnataka Edition)
     # ==========================================
     slide1 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide1)
@@ -171,7 +171,7 @@ def create_deck():
         run2 = p_b.add_run()
         run2.text = text
         run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(14)
+        p_b.space_after = Pt(12)
         
     add_slide_picture(slide2, "ethanol_damage.png", ORANGE)
 
@@ -180,7 +180,7 @@ def create_deck():
     # ==========================================
     slide3 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide3)
-    add_title(slide3, "The Shield", "Booster Dose (ಎಥನಾಲ್ ಇಂಜೆಕ್ಟರ್ ರಕ್ಷಕ)", CYAN)
+    add_title(slide3, "The Shield", "Booster Dose (Ethanol & Engine Protection)", CYAN)
     
     # Left Content Box (Bullets)
     left_box3 = slide3.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
@@ -192,19 +192,20 @@ def create_deck():
     p.font.name = 'Inter'
     p.font.size = Pt(15)
     p.font.color.rgb = MUTED
-    p.space_after = Pt(20)
+    p.space_after = Pt(15)
     
     bullets3 = [
-        ("Combats Phase Separation:", " Keeps ethanol and water fully bonded in the fuel, ensuring it burns off smoothly without pooling in the tank."),
-        ("Micro-Coating Shield:", " Coats fuel pump parts, lines, and injectors with a molecular anti-corrosive layer that repels acidic moisture."),
-        ("Restores Injector Spray:", " Disperses blockages and keeps high-precision BS4 & BS6 injector orifices completely clean for fuel compliance.")
+        ("Combats Phase Separation:", " Helps maintain a stable ethanol–petrol blend by reducing moisture-related separation."),
+        ("Active Corrosion Protection:", " Helps reduce moisture-driven corrosive activity associated with ethanol-blended petrol."),
+        ("Supports Precision Fuel Injection:", " Helps maintain consistent fuel delivery and injector performance in modern BS4 & BS6 petrol engines."),
+        ("Reduces Carbon Deposits:", " Helps remove carbon deposits from the EGR system and other critical engine components, supporting reliable sensor operation and reducing maintenance requirements.")
     ]
     
     for title, text in bullets3:
         p_b = tf_left3.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
-        p_b.font.size = Pt(14)
+        p_b.font.size = Pt(13)
         p_b.font.color.rgb = CYAN
         
         run = p_b.add_run()
@@ -215,37 +216,135 @@ def create_deck():
         run2 = p_b.add_run()
         run2.text = text
         run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(14)
+        p_b.space_after = Pt(8)
         
     add_slide_picture(slide3, "molecular_shield.png", CYAN)
 
     # ==========================================
-    # SLIDE 4: PERFORMANCE SURGE
+    # SLIDE 4: THE MISSING LINK (THERMODYNAMIC BREAKTHROUGH)
     # ==========================================
     slide4 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide4)
-    add_title(slide4, "Performance Surge", "Conquering Karnataka's Terrains", GREEN)
+    add_title(slide4, "Technology", "Cleaner Combustion – The Missing Link in ICE", GREEN)
     
-    # Left Content Box (Bullets)
+    # Left Content Box (Paragraphs)
     left_box4 = slide4.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
     tf_left4 = left_box4.text_frame
     tf_left4.word_wrap = True
     
-    p = tf_left4.paragraphs[0]
+    p_ice1 = tf_left4.paragraphs[0]
+    p_ice1.text = "The Certification Gap in Current Frameworks"
+    p_ice1.font.name = 'Outfit'
+    p_ice1.font.size = Pt(18)
+    p_ice1.font.bold = True
+    p_ice1.font.color.rgb = GREEN
+    p_ice1.space_after = Pt(10)
+    
+    p_ice2 = tf_left4.add_paragraph()
+    p_ice2.text = "Current global vehicle homologation frameworks—including CMVR (India), UNECE Regulations (Europe), U.S. EPA/NHTSA, Japan's Top Runner Program, and China's CAFC regulations—certify vehicles based on emissions, fuel economy, CO₂, safety, and durability. They do not prescribe minimum combustion efficiency or brake thermal efficiency as independent certification criteria. Sundar Carbon directly addresses this underlying energy conversion process, unlocking performance improvements beyond conventional outcome-based optimization."
+    p_ice2.font.name = 'Inter'
+    p_ice2.font.size = Pt(12)
+    p_ice2.font.color.rgb = MUTED
+    p_ice2.space_after = Pt(20)
+    
+    p_ice3 = tf_left4.add_paragraph()
+    p_ice3.text = "Improving Energy Conversion at Molecular Level"
+    p_ice3.font.name = 'Outfit'
+    p_ice3.font.size = Pt(18)
+    p_ice3.font.bold = True
+    p_ice3.font.color.rgb = GREEN
+    p_ice3.space_after = Pt(10)
+    
+    p_ice4 = tf_left4.add_paragraph()
+    p_ice4.text = "Unlike conventional approaches that primarily optimize vehicles to meet regulatory outcomes, our technology improves the combustion process itself at the molecular level, enabling substantially greater conversion of fuel energy into useful work. This represents a breakthrough in fuel energy utilization by improving Energy Conversion Efficiency from ~25% to ~65%, converting significantly more fuel into useful engine power while reducing unburnt hydrocarbons, emissions, fuel consumption, and fuel wastage."
+    p_ice4.font.name = 'Inter'
+    p_ice4.font.size = Pt(12)
+    p_ice4.font.color.rgb = MUTED
+
+    # Right Side Graphic Panel (Visualizing the conversion jump)
+    shape4 = slide4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.5), Inches(1.8), Inches(5.0), Inches(4.5))
+    shape4.fill.solid()
+    shape4.fill.fore_color.rgb = DARK_PANEL
+    shape4.line.color.rgb = GREEN
+    shape4.line.width = Pt(1.5)
+    
+    tf_panel4 = shape4.text_frame
+    tf_panel4.word_wrap = True
+    tf_panel4.margin_left = Inches(0.4)
+    tf_panel4.margin_right = Inches(0.4)
+    tf_panel4.margin_top = Inches(0.6)
+    
+    p_p4 = tf_panel4.paragraphs[0]
+    p_p4.text = "ENERGY CONVERSION IMPACT"
+    p_p4.font.name = 'Outfit'
+    p_p4.font.bold = True
+    p_p4.font.size = Pt(18)
+    p_p4.font.color.rgb = GREEN
+    p_p4.space_after = Pt(25)
+    
+    p_std = tf_panel4.add_paragraph()
+    p_std.text = "Standard Engine:"
+    p_std.font.name = 'Inter'
+    p_std.font.size = Pt(14)
+    p_std.font.color.rgb = WHITE
+    p_std.space_after = Pt(2)
+    
+    p_std_val = tf_panel4.add_paragraph()
+    p_std_val.text = "~25% Efficiency"
+    p_std_val.font.name = 'Outfit'
+    p_std_val.font.size = Pt(28)
+    p_std_val.font.bold = True
+    p_std_val.font.color.rgb = ORANGE
+    p_std_val.space_after = Pt(20)
+    
+    p_sun = tf_panel4.add_paragraph()
+    p_sun.text = "With Sundar Carbon:"
+    p_sun.font.name = 'Inter'
+    p_sun.font.size = Pt(14)
+    p_sun.font.color.rgb = WHITE
+    p_sun.space_after = Pt(2)
+    
+    p_sun_val = tf_panel4.add_paragraph()
+    p_sun_val.text = "~65% Efficiency"
+    p_sun_val.font.name = 'Outfit'
+    p_sun_val.font.size = Pt(36)
+    p_sun_val.font.bold = True
+    p_sun_val.font.color.rgb = GREEN
+    p_sun_val.space_after = Pt(20)
+    
+    p_footer = tf_panel4.add_paragraph()
+    p_footer.text = "Direct molecular combustion optimization reduces fuel wastage at source."
+    p_footer.font.name = 'Inter'
+    p_footer.font.size = Pt(11)
+    p_footer.font.color.rgb = MUTED
+
+    # ==========================================
+    # SLIDE 5: PERFORMANCE SURGE
+    # ==========================================
+    slide5 = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide5)
+    add_title(slide5, "Performance Surge", "Conquering Karnataka's Terrains", GREEN)
+    
+    # Left Content Box (Bullets)
+    left_box5 = slide5.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left5 = left_box5.text_frame
+    tf_left5.word_wrap = True
+    
+    p = tf_left5.paragraphs[0]
     p.text = "Certified performance values representing major operational improvements on local routes:"
     p.font.name = 'Inter'
     p.font.size = Pt(15)
     p.font.color.rgb = MUTED
     p.space_after = Pt(20)
     
-    bullets4 = [
+    bullets5 = [
         ("+30% Mileage Boost:", " Optimizes fuel combustion to increase mileage and fuel economy by up to 30%. Saves running costs on highway trips."),
         ("+80% Torque & Power:", " Delivers an 80% increase in power and pickup. Critical for steep Western Ghats climbs (Charmadi, Shiradi) and Nandi Hills."),
         ("-80% Cooler Running:", " Decreases external engine running temperatures by up to 80%. Prevents overheating in Bengaluru's bumper-to-bumper gridlock.")
     ]
     
-    for title, text in bullets4:
-        p_b = tf_left4.add_paragraph()
+    for title, text in bullets5:
+        p_b = tf_left5.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
         p_b.font.size = Pt(14)
@@ -261,59 +360,14 @@ def create_deck():
         run2.font.color.rgb = MUTED
         p_b.space_after = Pt(14)
         
-    add_slide_picture(slide4, "performance_surge.png", GREEN)
+    add_slide_picture(slide5, "performance_surge.png", GREEN)
 
     # ==========================================
-    # SLIDE 5: MAINTENANCE & DURABILITY
-    # ==========================================
-    slide5 = prs.slides.add_slide(blank_layout)
-    set_slide_background(slide5)
-    add_title(slide5, "Maintenance & Durability", "Extreme Wear & Cost Reduction", CYAN)
-    
-    # Left Content
-    left_box5 = slide5.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
-    tf_left5 = left_box5.text_frame
-    tf_left5.word_wrap = True
-    
-    p_intro5 = tf_left5.paragraphs[0]
-    p_intro5.text = "Minimizes engine downtime and cuts annual maintenance budgets:"
-    p_intro5.font.name = 'Inter'
-    p_intro5.font.size = Pt(15)
-    p_intro5.font.color.rgb = MUTED
-    p_intro5.space_after = Pt(20)
-    
-    bullets5 = [
-        ("85% Less Wear & Tear:", " Decreases mechanical engine parts wear by up to 85% by creating a resilient lubricant boundary layer."),
-        ("5x Extended Oil Life:", " Reduces oil degradation and contamination, extending oil changes by 5 times. Saves ₹15,000+ annually for typical drivers."),
-        ("5x Extended Engine Life:", " Protects internal pistons and valves from micro-abrasions and heat stress."),
-        ("Refined Smoothness:", " Drops engine noise by 60% and vibrations by 40% on rough roads. Enhances vehicle AC performance by up to 60% by easing engine strain.")
-    ]
-    
-    for title, text in bullets5:
-        p_b = tf_left5.add_paragraph()
-        p_b.text = "• "
-        p_b.font.name = 'Inter'
-        p_b.font.size = Pt(13)
-        p_b.font.color.rgb = CYAN
-        
-        run = p_b.add_run()
-        run.text = title
-        run.font.bold = True
-        run.font.color.rgb = WHITE
-        
-        run2 = p_b.add_run()
-        run2.text = text
-        run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(10)
-        
-    add_slide_picture(slide5, "piston_wear.png", CYAN)
-
-    # ==========================================
-    # SLIDE 6: ENVIRONMENTAL IMPACT
+    # SLIDE 6: MAINTENANCE & DURABILITY
     # ==========================================
     slide6 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide6)
-    add_title(slide6, "Environmental Impact", "Green Karnataka Initiative", GREEN)
+    add_title(slide6, "Maintenance & Durability", "Extreme Wear & Cost Reduction", CYAN)
     
     # Left Content
     left_box6 = slide6.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
@@ -321,21 +375,66 @@ def create_deck():
     tf_left6.word_wrap = True
     
     p_intro6 = tf_left6.paragraphs[0]
-    p_intro6.text = "Supports clean air initiatives in cities like Bengaluru, Mysuru, and Hubballi-Dharwad:"
+    p_intro6.text = "Minimizes engine downtime and cuts annual maintenance budgets:"
     p_intro6.font.name = 'Inter'
     p_intro6.font.size = Pt(15)
     p_intro6.font.color.rgb = MUTED
     p_intro6.space_after = Pt(20)
     
     bullets6 = [
+        ("85% Less Wear & Tear:", " Decreases mechanical engine parts wear by up to 85% by creating a resilient lubricant boundary layer."),
+        ("5x Extended Oil Life:", " Reduces oil degradation and contamination, extending oil changes by 5 times. Saves ₹15,000+ annually for typical drivers."),
+        ("5x Extended Engine Life:", " Protects internal pistons and valves from micro-abrasions and heat stress."),
+        ("Refined Smoothness:", " Drops engine noise by 60% and vibrations by 40% on rough roads. Enhances vehicle AC performance by up to 60% by easing engine strain.")
+    ]
+    
+    for title, text in bullets6:
+        p_b = tf_left6.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(13)
+        p_b.font.color.rgb = CYAN
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(10)
+        
+    add_slide_picture(slide6, "piston_wear.png", CYAN)
+
+    # ==========================================
+    # SLIDE 7: ENVIRONMENTAL IMPACT
+    # ==========================================
+    slide7 = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide7)
+    add_title(slide7, "Environmental Impact", "Green Karnataka Initiative", GREEN)
+    
+    # Left Content
+    left_box7 = slide7.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left7 = left_box7.text_frame
+    tf_left7.word_wrap = True
+    
+    p_intro7 = tf_left7.paragraphs[0]
+    p_intro7.text = "Supports clean air initiatives in cities like Bengaluru, Mysuru, and Hubballi-Dharwad:"
+    p_intro7.font.name = 'Inter'
+    p_intro7.font.size = Pt(15)
+    p_intro7.font.color.rgb = MUTED
+    p_intro7.space_after = Pt(20)
+    
+    bullets7 = [
         ("99.9% NOx & SOx Elimination:", " Near-complete removal of toxic nitrogen oxides and sulfur oxides in the exhaust stream."),
         ("90% Arsenic Reduction:", " Drastically minimizes toxic heavy-metal arsenic particulate exhaust by up to 90%."),
         ("Oxygen Boost (+50% O₂):", " Dramatically increases clean, breathable oxygen levels in the tailpipe output."),
         ("Combustion Optimization:", " Optimizes engine combustion to neutralize standard carbon footprint outputs and ensure easy PUC compliance.")
     ]
     
-    for title, text in bullets6:
-        p_b = tf_left6.add_paragraph()
+    for title, text in bullets7:
+        p_b = tf_left7.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
         p_b.font.size = Pt(13)
@@ -351,64 +450,14 @@ def create_deck():
         run2.font.color.rgb = MUTED
         p_b.space_after = Pt(10)
         
-    add_slide_picture(slide6, "clean_emissions.png", GREEN)
+    add_slide_picture(slide7, "clean_emissions.png", GREEN)
 
     # ==========================================
-    # SLIDE 7: PEACE OF MIND
-    # ==========================================
-    slide7 = prs.slides.add_slide(blank_layout)
-    set_slide_background(slide7)
-    add_title(slide7, "Peace of Mind", "1,00,000 KM Efficacy Guarantee", GREEN)
-    
-    # Left Content
-    left_box7 = slide7.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
-    tf_left7 = left_box7.text_frame
-    tf_left7.word_wrap = True
-    
-    p_intro7 = tf_left7.paragraphs[0]
-    p_intro7.text = "Engineered for maximum duration and passenger peace of mind:"
-    p_intro7.font.name = 'Inter'
-    p_intro7.font.size = Pt(15)
-    p_intro7.font.color.rgb = MUTED
-    p_intro7.space_after = Pt(25)
-    
-    p_guar = tf_left7.add_paragraph()
-    p_guar.text = "ಒಮ್ಮೆ ಬಳಸಿ, ದೀರ್ಘಕಾಲದವರೆಗೆ ಚಿಂತೆಮುಕ್ತರಾಗಿ"
-    p_guar.font.name = 'Tunga'
-    p_guar.font.size = Pt(18)
-    p_guar.font.bold = True
-    p_guar.font.color.rgb = GREEN
-    p_guar.space_after = Pt(10)
-    
-    p_guar_desc = tf_left7.add_paragraph()
-    p_guar_desc.text = "A single complete application remains fully active in the vehicle's engine and lubrication systems for 1,00,000 kilometers, requiring zero top-ups or frequent treatment renewals."
-    p_guar_desc.font.name = 'Inter'
-    p_guar_desc.font.size = Pt(14)
-    p_guar_desc.font.color.rgb = MUTED
-    p_guar_desc.space_after = Pt(20)
-    
-    p_note_header = tf_left7.add_paragraph()
-    p_note_header.text = "PRESENTER NOTE:"
-    p_note_header.font.name = 'Outfit'
-    p_note_header.font.size = Pt(14)
-    p_note_header.font.bold = True
-    p_note_header.font.color.rgb = CYAN
-    p_note_header.space_after = Pt(5)
-    
-    p_note_text = tf_left7.add_paragraph()
-    p_note_text.text = "Keep presentations focused on the long-term cost benefits, mechanical reliability, and peace of mind this 1,00,000 km timeline offers to individual car owners and corporate fleet managers in Karnataka."
-    p_note_text.font.name = 'Inter'
-    p_note_text.font.size = Pt(13)
-    p_note_text.font.color.rgb = MUTED
-        
-    add_slide_picture(slide7, "longevity_road.png", GREEN)
-
-    # ==========================================
-    # SLIDE 8: UNIVERSAL COMPATIBILITY
+    # SLIDE 8: PEACE OF MIND
     # ==========================================
     slide8 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide8)
-    add_title(slide8, "Compatibility", "Universal Fuel Adaptability", CYAN)
+    add_title(slide8, "Peace of Mind", "1,00,000 KM Efficacy Guarantee", GREEN)
     
     # Left Content
     left_box8 = slide8.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
@@ -416,20 +465,70 @@ def create_deck():
     tf_left8.word_wrap = True
     
     p_intro8 = tf_left8.paragraphs[0]
-    p_intro8.text = "Formulated to optimize all standard combustible fuel engine configurations:"
+    p_intro8.text = "Engineered for maximum duration and passenger peace of mind:"
     p_intro8.font.name = 'Inter'
     p_intro8.font.size = Pt(15)
     p_intro8.font.color.rgb = MUTED
     p_intro8.space_after = Pt(25)
     
-    bullets8 = [
+    p_guar = tf_left8.add_paragraph()
+    p_guar.text = "ಒಮ್ಮೆ ಬಳಸಿ, ದೀರ್ಘಕಾಲದವರೆಗೆ ಚಿಂತೆಮುಕ್ತರಾಗಿ"
+    p_guar.font.name = 'Tunga'
+    p_guar.font.size = Pt(18)
+    p_guar.font.bold = True
+    p_guar.font.color.rgb = GREEN
+    p_guar.space_after = Pt(10)
+    
+    p_guar_desc = tf_left8.add_paragraph()
+    p_guar_desc.text = "A single complete application remains fully active in the vehicle's engine and lubrication systems for 1,0,000 kilometers, requiring zero top-ups or frequent treatment renewals."
+    p_guar_desc.font.name = 'Inter'
+    p_guar_desc.font.size = Pt(14)
+    p_guar_desc.font.color.rgb = MUTED
+    p_guar_desc.space_after = Pt(20)
+    
+    p_note_header = tf_left8.add_paragraph()
+    p_note_header.text = "PRESENTER NOTE:"
+    p_note_header.font.name = 'Outfit'
+    p_note_header.font.size = Pt(14)
+    p_note_header.font.bold = True
+    p_note_header.font.color.rgb = CYAN
+    p_note_header.space_after = Pt(5)
+    
+    p_note_text = tf_left8.add_paragraph()
+    p_note_text.text = "Keep presentations focused on the long-term cost benefits, mechanical reliability, and peace of mind this 1,0,000 km timeline offers to individual car owners and corporate fleet managers in Karnataka."
+    p_note_text.font.name = 'Inter'
+    p_note_text.font.size = Pt(13)
+    p_note_text.font.color.rgb = MUTED
+        
+    add_slide_picture(slide8, "longevity_road.png", GREEN)
+
+    # ==========================================
+    # SLIDE 9: UNIVERSAL COMPATIBILITY
+    # ==========================================
+    slide9 = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide9)
+    add_title(slide9, "Compatibility", "Universal Fuel Adaptability", CYAN)
+    
+    # Left Content
+    left_box9 = slide9.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left9 = left_box9.text_frame
+    tf_left9.word_wrap = True
+    
+    p_intro9 = tf_left9.paragraphs[0]
+    p_intro9.text = "Formulated to optimize all standard combustible fuel engine configurations:"
+    p_intro9.font.name = 'Inter'
+    p_intro9.font.size = Pt(15)
+    p_intro9.font.color.rgb = MUTED
+    p_intro9.space_after = Pt(25)
+    
+    bullets9 = [
         ("Petrol Engines (Ethanol Defense):", " Actively guards delicate BS4 & BS6 injectors from corrosive sugarcane-blended E20 fuel deposits."),
         ("Diesel Engines (Heavy Duty):", " Prevents cylinder scaling, exhaust soot buildup, and injectors carbonization under heavy-duty cargo demands."),
         ("Multi-Fuel Performance:", " Works identically on petrol-powered commuter vehicles and diesel-powered cargo fleets, requiring no formula alterations.")
     ]
     
-    for title, text in bullets8:
-        p_b = tf_left8.add_paragraph()
+    for title, text in bullets9:
+        p_b = tf_left9.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
         p_b.font.size = Pt(13)
@@ -445,9 +544,9 @@ def create_deck():
         run2.font.color.rgb = MUTED
         p_b.space_after = Pt(14)
         
-    add_slide_picture(slide8, "universal_vehicles.png", CYAN)
+    add_slide_picture(slide9, "universal_vehicles.png", CYAN)
 
-    # Save presentation
+    # Save presentation - write to a new visual filename to prevent PowerPoint lock errors
     output_filename = "sundar_carbon_antidote_plus_karnataka_visual.pptx"
     prs.save(output_filename)
     print(f"Presentation saved successfully as {output_filename}")
