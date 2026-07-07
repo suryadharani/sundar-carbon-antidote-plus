@@ -526,14 +526,15 @@ def create_deck():
     bullets9 = [
         ("Petrol Engines (Ethanol Defense):", " Actively guards delicate BS4 & BS6 injectors from corrosive sugarcane-blended E20 fuel deposits."),
         ("Diesel Engines (Heavy Duty):", " Prevents cylinder scaling, exhaust soot buildup, and injectors carbonization under heavy-duty cargo demands."),
-        ("Multi-Fuel Performance:", " Works identically on petrol-powered commuter vehicles and diesel-powered cargo fleets, requiring no formula alterations.")
+        ("Multi-Fuel Performance:", " Works identically on petrol-powered commuter vehicles and diesel-powered cargo fleets, requiring no formula alterations."),
+        ("Universal ICE Adaptability:", " Suitable for any Internal Combustion Engine (ICE)—regardless of size, displacement, or application. This includes passenger vehicles, two-wheelers, agricultural tractors, marine outboards, backup generators, and industrial heavy machinery.")
     ]
     
     for title, text in bullets9:
         p_b = tf_left9.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
-        p_b.font.size = Pt(13)
+        p_b.font.size = Pt(12)
         p_b.font.color.rgb = CYAN
         
         run = p_b.add_run()
@@ -544,9 +545,9 @@ def create_deck():
         run2 = p_b.add_run()
         run2.text = text
         run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(14)
+        p_b.space_after = Pt(8)
         
-    add_slide_picture(slide9, "universal_vehicles.png", CYAN)
+    add_slide_picture(slide9, "universal_vehicles_india.png", CYAN)
 
     # Save presentation - write to a new visual filename to prevent PowerPoint lock errors
     output_filename = "sundar_carbon_antidote_plus_karnataka_visual.pptx"
