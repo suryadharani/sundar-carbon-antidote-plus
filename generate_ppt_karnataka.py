@@ -108,7 +108,7 @@ def create_deck():
     p3.space_after = Pt(20)
     
     p4 = tf.add_paragraph()
-    p4.text = "The ultimate engine rejuvenation, performance boost, and certified fuel system defense calibrated for Karnataka's road and fuel conditions."
+    p4.text = "The ultimate engine rejuvenation, performance boost, and fuel system defense calibrated for all Petrol & Diesel vehicles on Karnataka's roads."
     p4.font.name = 'Inter'
     p4.font.size = Pt(13)
     p4.font.color.rgb = MUTED
@@ -580,6 +580,83 @@ def create_deck():
     p_p7_3.font.size = Pt(13)
     p_p7_3.font.color.rgb = MUTED
     p_p7_3.alignment = PP_ALIGN.CENTER
+
+    # ==========================================
+    # SLIDE 8: UNIVERSAL COMPATIBILITY (Petrol & Diesel)
+    # ==========================================
+    slide8 = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide8)
+    add_title(slide8, "Compatibility", "Universal Fuel Adaptability", CYAN)
+    
+    # Left Content
+    left_box8 = slide8.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left8 = left_box8.text_frame
+    tf_left8.word_wrap = True
+    
+    p_intro8 = tf_left8.paragraphs[0]
+    p_intro8.text = "Formulated to optimize all standard combustible fuel engine configurations:"
+    p_intro8.font.name = 'Inter'
+    p_intro8.font.size = Pt(15)
+    p_intro8.font.color.rgb = MUTED
+    p_intro8.space_after = Pt(25)
+    
+    bullets8 = [
+        ("Petrol Engines (Ethanol Defense):", " Actively guards delicate BS4 & BS6 injectors from corrosive sugarcane-blended E20 fuel deposits."),
+        ("Diesel Engines (Heavy Duty):", " Prevents cylinder scaling, exhaust soot buildup, and injectors carbonization under heavy-duty cargo demands."),
+        ("Multi-Fuel Performance:", " Works identically on petrol-powered commuter vehicles and diesel-powered cargo fleets, requiring no formula alterations.")
+    ]
+    
+    for title, text in bullets8:
+        p_b = tf_left8.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(13)
+        p_b.font.color.rgb = CYAN
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(14)
+        
+    # Right Side Graphic Panel
+    shape8 = slide8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.5), Inches(1.8), Inches(5.0), Inches(4.5))
+    shape8.fill.solid()
+    shape8.fill.fore_color.rgb = DARK_PANEL
+    shape8.line.color.rgb = CYAN
+    shape8.line.width = Pt(1.5)
+    
+    tf_panel8 = shape8.text_frame
+    tf_panel8.word_wrap = True
+    tf_panel8.margin_left = Inches(0.4)
+    tf_panel8.margin_right = Inches(0.4)
+    tf_panel8.margin_top = Inches(0.6)
+    
+    p_p8 = tf_panel8.paragraphs[0]
+    p_p8.text = "PETROL & DIESEL DUAL ACTION"
+    p_p8.font.name = 'Outfit'
+    p_p8.font.bold = True
+    p_p8.font.size = Pt(18)
+    p_p8.font.color.rgb = CYAN
+    p_p8.space_after = Pt(15)
+    
+    compat_points = [
+        "Two-Wheelers & Scooters (Petrol)",
+        "Passenger Cars, Hatchbacks & Sedans",
+        "Commercial Transit Buses & Coaches (Diesel)",
+        "Heavy Logistics Trucks & Cargo Fleets"
+    ]
+    for b in compat_points:
+        p_pb = tf_panel8.add_paragraph()
+        p_pb.text = "⚡ " + b
+        p_pb.font.name = 'Inter'
+        p_pb.font.size = Pt(13)
+        p_pb.font.color.rgb = WHITE
+        p_pb.space_after = Pt(12)
 
     # Save presentation
     output_filename = "sundar_carbon_antidote_plus_karnataka.pptx"
