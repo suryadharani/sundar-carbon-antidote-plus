@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sundar Carbon Antidote Plus - Interactive Presentation</title>
+  <meta name="description" content="Explore the certified values, performance surge, ethanol defense, and environmental impact of Sundar Carbon Antidote Plus (with Booster Dose) in this interactive presentation.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Presentation Container -->
+  <div id="presentation-container" class="presentation-container">
+    
+    <!-- Top Brand Header -->
+    <header class="pres-header">
+      <div class="brand-logo" id="brand-logo">
+        <img src="images/logo.jpg" alt="Sundar Innovations Logo" class="brand-logo-img">
+        <span class="logo-text">CARBON ANTIDOTE <span class="badge-plus">PLUS</span></span>
+      </div>
+      <div class="booster-tagline" id="booster-tagline">
+        <span class="booster-badge">with BOOSTER DOSE</span>
+      </div>
+    </header>
+
+    <!-- Slide Wrapper -->
+    <main class="slide-viewport">
+      
+      <!-- Slide 1: Welcome / Showcase -->
+      <section class="slide active" id="slide-1">
+        <div class="slide-content">
+          <div class="slide-text">
+            <span class="slide-category green-glow-text">The Ultimate Engine Treatment</span>
+            <h1 class="slide-title">Rejuvenate Your Engine</h1>
+            <p class="slide-description">Experience the double-action power of <strong>Carbon Antidote Plus</strong> and the specialized <strong>Booster Dose</strong>. Designed for peak performance and absolute engine protection.</p>
+            
+            <div class="badge-row">
+              <div class="badge-item"><span class="badge-dot cyan-dot"></span> Performance Boost</div>
+              <div class="badge-item"><span class="badge-dot orange-dot"></span> Ethanol Defense</div>
+              <div class="badge-item"><span class="badge-dot green-dot"></span> 1,00,000 km Efficacy</div>
+            </div>
+
+            <div class="slide-action">
+              <button class="btn btn-primary" id="start-btn">Start Presentation</button>
+            </div>
+          </div>
+          <div class="slide-visual">
+            <div class="product-frame">
+              <img src="images/product_showcase.png" alt="Sundar Carbon Antidote Plus Bottle" class="product-img" id="product-hero-img">
+              <div class="glow-ring rings-cyan"></div>
+              <div class="glow-ring rings-green"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: The Problem (Ethanol Threat) -->
+      <section class="slide" id="slide-2">
+        <div class="slide-content">
+          <div class="slide-text">
+            <span class="slide-category orange-glow-text">The Threat</span>
+            <h2 class="slide-title">The Silent Engine Killer</h2>
+            <p class="slide-description">Mandatory government ethanol blending (up to 20%) in modern petrol damages vital components.</p>
+            
+            <ul class="bullet-list">
+              <li><strong>Water Absorption:</strong> Ethanol attracts moisture from the air, creating a corrosive water-fuel mixture.</li>
+              <li><strong>Corrosive Attacks:</strong> Rusts metal tanks and degrades rubber fuel lines.</li>
+              <li><strong>BS4 & BS6 Danger:</strong> Highly sensitive high-pressure fuel injectors clog, causing engine misfires and loss of power.</li>
+            </ul>
+          </div>
+          <div class="slide-visual">
+            <div class="interactive-card">
+              <div class="card-header">
+                <h3>Fuel Injector Simulation</h3>
+                <p>Select engine state to see the difference:</p>
+              </div>
+              <div class="injector-container" id="injector-simulator">
+                <div class="injector-graphic" id="injector-nozzle">
+                  <!-- Custom SVG for Injector -->
+                  <svg viewBox="0 0 100 150" class="injector-svg">
+                    <rect x="35" y="10" width="30" height="80" rx="5" fill="#2d313f" />
+                    <rect x="42" y="90" width="16" height="30" fill="#4a5066" />
+                    <path d="M 46,120 L 54,120 L 50,130 Z" fill="#99a3c4" />
+                    <path id="injector-spray" d="M 50,130 L 20,180 L 80,180 Z" fill="rgba(0, 240, 255, 0.3)" />
+                  </svg>
+                  <div class="rust-particles" id="rust-particles"></div>
+                </div>
+                <div class="simulation-feedback" id="simulation-status-text">
+                  Hover or select to view injector health.
+                </div>
+              </div>
+              <div class="toggle-group">
+                <button class="btn btn-secondary active" id="btn-unprotected">Unprotected</button>
+                <button class="btn btn-secondary" id="btn-protected">Protected by Booster Dose</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: The Solution (Booster Dose) -->
+      <section class="slide" id="slide-3">
+        <div class="slide-content">
+          <div class="slide-text">
+            <span class="slide-category cyan-glow-text">The Shield</span>
+            <h2 class="slide-title">Active Ethanol Defense</h2>
+            <p class="slide-description">The <strong>Booster Dose</strong> is chemically engineered to neutralize ethanol-blended petrol hazards.</p>
+            
+            <ul class="bullet-list">
+              <li><strong>Combats Phase Separation:</strong> Keeps ethanol and water fully bonded in the fuel so it burns off cleanly.</li>
+              <li><strong>Anti-Corrosive Barrier:</strong> Plates fuel lines and pump internals with a microscopic protective film.</li>
+              <li><strong>Injector Optimizer:</strong> Cleans carbon deposits and keeps BS4 & BS6 injectors spraying perfectly.</li>
+            </ul>
+          </div>
+          <div class="slide-visual">
+            <div class="molecular-chamber">
+              <div class="chamber-label">Microscopic Fuel Cell Animation</div>
+              <div class="molecule-grid" id="molecule-grid">
+                <!-- Programmatically generated elements in app.js -->
+              </div>
+              <div class="chamber-control">
+                <button class="btn btn-primary" id="btn-neutralize">Inject Antidote Shield</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Power & Efficiency (Stats) -->
+      <section class="slide" id="slide-4">
+        <div class="slide-content">
+          <div class="slide-text">
+            <span class="slide-category green-glow-text">Performance Surge</span>
+            <h2 class="slide-title">Unleash Core Performance</h2>
+            <p class="slide-description">Certified figures demonstrating extreme efficiency boosts and engine output increases.</p>
+            
+            <div class="stats-cards-grid">
+              <div class="stat-mini-card">
+                <div class="stat-val green-glow-text">+30%</div>
+                <div class="stat-lbl">Fuel Efficiency Boost</div>
+              </div>
+              <div class="stat-mini-card">
+                <div class="stat-val cyan-glow-text">+80%</div>
+                <div class="stat-lbl">Torque & Power Surge</div>
+              </div>
+              <div class="stat-mini-card">
+                <div class="stat-val orange-glow-text">-80%</div>
+                <div class="stat-lbl">Cooler Engine Runs</div>
+              </div>
+            </div>
+          </div>
+          <div class="slide-visual">
+            <div class="gauges-container">
+              <!-- Gauges -->
+              <div class="gauge-box">
+                <svg viewBox="0 0 100 100" class="gauge-svg">
+                  <circle cx="50" cy="50" r="40" stroke="#1c1f2b" stroke-width="8" fill="transparent" />
+                  <circle id="gauge-efficiency" class="gauge-bar stroke-green" cx="50" cy="50" r="40" stroke-width="8" fill="transparent" stroke-dasharray="251" stroke-dashoffset="251" />
+                  <text x="50" y="55" class="gauge-text" id="gauge-text-eff">0%</text>
+                </svg>
+                <div class="gauge-title">Mileage Boost</div>
+              </div>
+
+              <div class="gauge-box">
+                <svg viewBox="0 0 100 100" class="gauge-svg">
+                  <circle cx="50" cy="50" r="40" stroke="#1c1f2b" stroke-width="8" fill="transparent" />
+                  <circle id="gauge-torque" class="gauge-bar stroke-cyan" cx="50" cy="50" r="40" stroke-width="8" fill="transparent" stroke-dasharray="251" stroke-dashoffset="251" />
+                  <text x="50" y="55" class="gauge-text" id="gauge-text-trq">0%</text>
+                </svg>
+                <div class="gauge-title">Torque Surge</div>
+              </div>
+
+              <div class="gauge-box">
+                <svg viewBox="0 0 100 100" class="gauge-svg">
+                  <circle cx="50" cy="50" r="40" stroke="#1c1f2b" stroke-width="8" fill="transparent" />
+                  <circle id="gauge-temp" class="gauge-bar stroke-orange" cx="50" cy="50" r="40" stroke-width="8" fill="transparent" stroke-dasharray="251" stroke-dashoffset="251" />
+                  <text x="50" y="55" class="gauge-text" id="gauge-text-tmp">0%</text>
+                </svg>
+                <div class="gauge-title">Temp Drop</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Maintenance & Durability -->
+      <section class="slide" id="slide-5">
+        <div class="slide-content">
+          <div class="slide-text">
+            <span class="slide-category cyan-glow-text">Maintenance & Durability</span>
+            <h2 class="slide-title">Extreme Wear Reduction</h2>
+            <p class="slide-description">Drastically cuts maintenance costs and increases component lifetime.</p>
+            
+            <div class="durability-grid">
+              <div class="durability-item">
+                <span class="dur-number green-glow-text">5x</span>
+                <span class="dur-text">Engine & Oil Lifespan</span>
+              </div>
+              <div class="durability-item">
+                <span class="dur-number orange-glow-text">85%</span>
+                <span class="dur-text">Less Wear & Tear</span>
+              </div>
+              <div class="durability-item">
+                <span class="dur-number cyan-glow-text">60%</span>
+                <span class="dur-text">Engine Noise Reduction</span>
+              </div>
+              <div class="durability-item">
+                <span class="dur-number green-glow-text">60%</span>
+                <span class="dur-text">AC Performance Boost</span>
+              </div>
+            </div>
+          </div>
+          <div class="slide-visual">
+            <div class="engine-sim-box">
+              <div class="sim-title">Piston Coating & Wear Simulator</div>
+              <div class="piston-chamber">
+                <div class="piston-wall-left"></div>
+                <div class="piston-wall-right"></div>
+                <div class="piston-shield" id="piston-shield"></div>
+                <div class="piston-metal" id="piston-moving-part">
+                  <!-- Piston Head SVG -->
+                  <svg viewBox="0 0 100 80" class="piston-svg">
+                    <rect x="15" y="10" width="70" height="40" fill="#3a4053" rx="3" />
+                    <rect x="25" y="2" width="50" height="8" fill="#5c647c" rx="1" />
+                    <!-- Rings -->
+                    <line x1="12" y1="18" x2="88" y2="18" stroke="#12141c" stroke-width="3" />
+                    <line x1="12" y1="28" x2="88" y2="28" stroke="#12141c" stroke-width="3" />
+                    <!-- Connector rod -->
+                    <rect x="42" y="50" width="16" height="30" fill="#7d87a4" />
+                  </svg>
+                </div>
+              </div>
+              <div class="sim-actions">
+                <button class="btn btn-secondary active" id="btn-coat-off">Standard Metal</button>
+                <button class="btn btn-secondary" id="btn-coat-on">Antidote Coating (Protected)</button>
+              </div>
+              <div class="sim-desc" id="sim-piston-desc">Standard metal experiences severe friction and thermal wear.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Environmental Impact -->
+      <section class="slide" id="slide-6">
+        <div class="slide-content">
+          <div class="slide-text">
+            <span class="slide-category green-glow-text">Environmental Impact</span>
+            <h2 class="slide-title">Clean Combustion</h2>
+            <p class="slide-description">Engineered to eliminate harmful exhaust toxins and create a carbon-neutral exhaust stream.</p>
+            
+            <ul class="bullet-list">
+              <li><strong>99.9% NOx & SOx Elimination:</strong> Near-complete reduction of highly toxic nitrogen and sulfur oxide gases.</li>
+              <li><strong>90% Less Arsenic:</strong> Drastically cuts heavy metal arsenic particles from exhaust.</li>
+              <li><strong>+50% Oxygen Exhaust:</strong> Increases clean, breathable O₂ output while neutralizing standard carbon footprint.</li>
+            </ul>
+          </div>
+          <div class="slide-visual">
+            <div class="emission-box">
+              <div class="emission-title">Exhaust Stream Particles</div>
+              <div class="exhaust-pipe-simulation" id="exhaust-simulation">
+                <div class="pipe-base"></div>
+                <div class="particle-stream" id="particle-stream"></div>
+              </div>
+              <div class="emission-toggle">
+                <button class="btn btn-secondary active" id="btn-exhaust-standard">Standard Exhaust</button>
+                <button class="btn btn-secondary" id="btn-exhaust-clean">Antidote Exhaust</button>
+              </div>
+              <div class="emission-stats-bubble" id="emission-bubble">
+                Emitting harmful carbon, soot, NOx, and SOx particles.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Peace of Mind (1,00,000 km) -->
+      <section class="slide" id="slide-7">
+        <div class="slide-content">
+          <div class="slide-text">
+            <span class="slide-category green-glow-text">Long Term Peace of Mind</span>
+            <h2 class="slide-title">Built for 1,0,000 km</h2>
+            <p class="slide-description">A single treatment remains fully active in the vehicle for <strong>1,00,000 kilometers</strong>.</p>
+            
+            <div class="peace-metrics">
+              <div class="peace-card">
+                <span class="peace-num" id="odometer-num">0</span>
+                <span class="peace-label">Kilometers Active Efficacy</span>
+              </div>
+              <div class="peace-card">
+                <span class="peace-num">Zero</span>
+                <span class="peace-label">Frequent Top-ups Required</span>
+              </div>
+            </div>
+            
+            <p class="presenter-note"><strong>Sales presentation focus:</strong> Highlight the long-term reliability and zero maintenance overhead during presentations. Offers complete confidence to fleets and individual owners alike.</p>
+          </div>
+          <div class="slide-visual">
+            <div class="highway-scene">
+              <div class="road">
+                <div class="road-line"></div>
+              </div>
+              <div class="odometer-digital" id="odometer-display">
+                <div class="digit">1</div>
+                <div class="digit">0</div>
+                <div class="digit">0</div>
+                <div class="digit">0</div>
+                <div class="digit">0</div>
+                <div class="digit">0</div>
+                <span class="km-label">km</span>
+              </div>
+              <div class="peace-seal">
+                <svg viewBox="0 0 100 100" class="seal-svg">
+                  <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff66" stroke-width="3" stroke-dasharray="6 3" />
+                  <circle cx="50" cy="50" r="38" fill="rgba(0,255,102,0.1)" stroke="#00ff66" stroke-width="1" />
+                  <text x="50" y="45" text-anchor="middle" font-size="10" font-weight="bold" fill="#00ff66">1,00,000</text>
+                  <text x="50" y="58" text-anchor="middle" font-size="9" fill="#00ff66">KM</text>
+                  <text x="50" y="70" text-anchor="middle" font-size="8" fill="#fff" letter-spacing="1">GUARANTEE</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+
+    <!-- Navigation Control Bar -->
+    <footer class="pres-controls">
+      <div class="controls-left">
+        <button class="nav-btn" id="prev-btn" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
+          </svg>
+        </button>
+        <span class="slide-counter" id="slide-counter">Slide 1 of 7</span>
+        <button class="nav-btn" id="next-btn" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="controls-center">
+        <!-- Dot Navigation Indicator -->
+        <div class="slide-dots" id="slide-dots">
+          <span class="dot active" data-slide="1"></span>
+          <span class="dot" data-slide="2"></span>
+          <span class="dot" data-slide="3"></span>
+          <span class="dot" data-slide="4"></span>
+          <span class="dot" data-slide="5"></span>
+          <span class="dot" data-slide="6"></span>
+          <span class="dot" data-slide="7"></span>
+        </div>
+      </div>
+
+      <div class="controls-right">
+        <!-- Interactive Value Calculator Modal Toggle -->
+        <button class="btn btn-secondary" id="toggle-calc-btn">Savings Calculator</button>
+        <button class="btn btn-secondary" id="autoplay-btn">Autoplay</button>
+      </div>
+    </footer>
+
+    <!-- Progress Indicator Line -->
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Calculator Drawer/Modal (Interactive Feature) -->
+  <div class="calculator-drawer" id="calculator-drawer">
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h2>Savings & Value Calculator</h2>
+        <button class="close-btn" id="close-drawer-btn">&times;</button>
+      </div>
+      <div class="drawer-body">
+        <p class="drawer-intro">Adjust the parameters to estimate the financial benefits of upgrading to Sundar Carbon Antidote Plus.</p>
+        
+        <div class="calc-inputs">
+          <div class="input-group">
+            <label for="input-distance">Annual Driving Distance (km)</label>
+            <div class="range-wrap">
+              <input type="range" id="input-distance" min="5000" max="50000" step="1000" value="15000">
+              <span class="range-val" id="val-distance">15,000 km</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="input-mileage">Current Vehicle Mileage (km/l)</label>
+            <div class="range-wrap">
+              <input type="range" id="input-mileage" min="5" max="30" step="1" value="15">
+              <span class="range-val" id="val-mileage">15 km/l</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="input-oil-cost">Cost per Engine Oil Change (₹)</label>
+            <div class="range-wrap">
+              <input type="range" id="input-oil-cost" min="1500" max="10000" step="250" value="3000">
+              <span class="range-val" id="val-oil-cost">₹3,000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-outputs">
+          <h3>Estimated Benefits per Year</h3>
+          
+          <div class="output-cards">
+            <div class="out-card">
+              <span class="out-val green-glow-text" id="out-fuel-saved">115 L</span>
+              <span class="out-lbl">Fuel Saved</span>
+            </div>
+            
+            <div class="out-card">
+              <span class="out-val green-glow-text" id="out-money-saved">₹11,500</span>
+              <span class="out-lbl">Financial Fuel Savings</span>
+            </div>
+
+            <div class="out-card">
+              <span class="out-val cyan-glow-text" id="out-oil-saved">₹4,800</span>
+              <span class="out-lbl">Oil Longevity Savings</span>
+            </div>
+
+            <div class="out-card card-total">
+              <span class="out-val green-glow-text" id="out-total-savings">₹16,300</span>
+              <span class="out-lbl">Total Annual Benefit</span>
+            </div>
+          </div>
+
+          <div class="calc-footer-info">
+            <p>*Calculations are based on fuel price of ₹100/liter, 30% fuel efficiency boost, and 5x oil longevity (saving on 4 oil changes over the extended lifespan of the oil).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
