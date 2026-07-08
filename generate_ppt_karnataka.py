@@ -188,9 +188,9 @@ def create_deck():
     p.space_after = Pt(15)
     
     bullets_con = [
-        ("Premium Fuel Scaling Cost:", " Upgrading KSRTC and municipal fleets to commercial premium fuels is budgetarily impossible, compounding state transit deficits."),
-        ("Component Failure Risks:", " Leaving fleets untreated results in premature injector failure, tank rust remediation, and lost operational hours."),
-        ("Molecular Treatment Savings:", " Implementing a regular, low-cost molecular fuel treatment shields public assets without budget inflation.")
+        ("Premium Fuel Pathway:", " Procuring premium-grade fuels to improve engine performance can increase fuel expenditure by 10–15%, making large-scale adoption financially challenging for public transport fleets."),
+        ("Status Quo Pathway:", " Continued operation with conventional fuels alone may contribute to injector deposits, combustion-related carbon buildup, higher maintenance frequency, and reduced engine efficiency over time, particularly under heavy-duty operating conditions."),
+        ("Sundar Carbon Pathway:", " A locally developed fuel conditioning technology designed to support cleaner combustion, protect critical fuel-system components, and improve operational efficiency—without requiring premium fuels or engine modifications.")
     ]
     
     for title, text in bullets_con:

@@ -188,9 +188,9 @@ def create_deck():
     p.space_after = Pt(15)
     
     bullets_con = [
-        ("The Premium Fuel Pathway:", " Procuring commercial premium fuels escalates operating budgets by 10-15%, making it financially unviable for public fleet scale."),
-        ("The Inaction Pathway:", " Ignoring biofuel degradation leads to severe engine breakdowns, premature replacement of injector assemblies, and massive capital loss."),
-        ("The Active Additive Pathway:", " Using a localized, high-concentration molecular treatment shields active components at a fraction of the cost, preserving public utility assets.")
+        ("Premium Fuel Pathway:", " Procuring premium-grade fuels to improve engine performance can increase fuel expenditure by 10–15%, making large-scale adoption financially challenging for public transport fleets."),
+        ("Status Quo Pathway:", " Continued operation with conventional fuels alone may contribute to injector deposits, combustion-related carbon buildup, higher maintenance frequency, and reduced engine efficiency over time, particularly under heavy-duty operating conditions."),
+        ("Sundar Carbon Pathway:", " A locally developed fuel conditioning technology designed to support cleaner combustion, protect critical fuel-system components, and improve operational efficiency—without requiring premium fuels or engine modifications.")
     ]
     
     for title, text in bullets_con:
@@ -632,7 +632,7 @@ def create_deck():
     add_slide_picture(slide9, "universal_vehicles_india.png", CYAN)
 
     # Save presentation
-    output_filename = "What is our Product - India_final_v3.pptx"
+    output_filename = "What is our Product - India_final_v4.pptx"
     prs.save(output_filename)
     print(f"Presentation saved successfully as {output_filename}")
 
