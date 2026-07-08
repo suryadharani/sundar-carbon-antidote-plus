@@ -122,7 +122,7 @@ def create_deck():
     p4.font.color.rgb = MUTED
     
     # Add Product Image (Right half)
-    img_path = os.path.join("images", "product_showcase.png")
+    img_path = os.path.join("images", "product_showcase_glow.png")
     if os.path.exists(img_path):
         slide1.shapes.add_picture(img_path, Inches(8.6), Inches(1.5), width=Inches(3.8), height=Inches(4.8))
 
