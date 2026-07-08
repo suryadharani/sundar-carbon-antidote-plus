@@ -62,19 +62,12 @@ def create_deck():
         add_logo(slide)
 
     def add_slide_picture(slide, img_name, border_color):
-        # Draw the frame shape
-        shape = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.5), Inches(1.8), Inches(5.0), Inches(4.5))
-        shape.fill.solid()
-        shape.fill.fore_color.rgb = DARK_PANEL
-        shape.line.color.rgb = border_color
-        shape.line.width = Pt(1.5)
-        
-        # Overlay the rounded picture inside the frame with padding
+        # Insert the pre-bordered, center-cropped, and rounded image directly
         base_name = os.path.splitext(img_name)[0]
-        rounded_img_name = f"{base_name}_rounded.png"
-        img_path = os.path.join("images", rounded_img_name)
+        bordered_img_name = f"{base_name}_bordered.png"
+        img_path = os.path.join("images", bordered_img_name)
         if os.path.exists(img_path):
-            slide.shapes.add_picture(img_path, Inches(7.6), Inches(1.9), width=Inches(4.8), height=Inches(4.3))
+            slide.shapes.add_picture(img_path, Inches(7.5), Inches(1.8), width=Inches(5.0), height=Inches(4.5))
 
     # ==========================================
     # SLIDE 1: TITLE SLIDE (Karnataka Edition)
