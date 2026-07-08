@@ -100,7 +100,7 @@ def create_deck():
     p1.space_after = Pt(0)
     
     p2 = tf.add_paragraph()
-    p2.text = "ANTIDOTE PLUS"
+    p2.text = "ANTIDOTE PLUS®"
     p2.font.name = 'Outfit'
     p2.font.size = Pt(52)
     p2.font.bold = True
@@ -294,7 +294,7 @@ def create_deck():
     p_std_val.space_after = Pt(20)
     
     p_sun = tf_panel4.add_paragraph()
-    p_sun.text = "With Sundar Carbon:"
+    p_sun.text = "With Sundar Carbon Antidotplus® + Booster Dose :"
     p_sun.font.name = 'Inter'
     p_sun.font.size = Pt(14)
     p_sun.font.color.rgb = WHITE
