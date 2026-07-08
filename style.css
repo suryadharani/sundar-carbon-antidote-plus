@@ -1389,3 +1389,20 @@ body {
     justify-content: center;
   }
 }
+
+/* Order Now CTA Button styles */
+.btn-order-now-cta {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-order-now-cta:hover {
+  background: #1ebe54 !important;
+  border-color: #1ebe54 !important;
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.5) !important;
+  transform: translateY(-2px);
+  color: #fff !important;
+}
+
+.btn-order-now-cta:active {
+  transform: translateY(0);
+}
