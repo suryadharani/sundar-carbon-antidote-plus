@@ -1406,3 +1406,203 @@ body {
 .btn-order-now-cta:active {
   transform: translateY(0);
 }
+
+/* ==========================================
+   MOBILE & TABLET RESPONSIVE DEEP POLISH
+   ========================================== */
+
+@media (max-width: 1024px) {
+  .slide-visual {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Controls and header padding cleanup */
+  .pres-header {
+    padding: 12px 20px;
+  }
+  .pres-controls {
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 12px;
+    height: auto;
+  }
+  .controls-left, .controls-center, .controls-right {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+  .controls-right {
+    flex-wrap: wrap;
+  }
+  .slide {
+    padding: 20px 20px;
+  }
+  .slide-title {
+    font-size: 1.8rem;
+  }
+  .slide-description {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+  }
+  .bullet-list li {
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Calculator Drawer container */
+  .drawer-content {
+    padding: 20px;
+    width: 94%;
+    max-height: 94vh;
+  }
+  .drawer-header h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 580px) {
+  /* Calculator Output Grid adjustment */
+  .output-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .output-calc-card.card-total {
+    grid-column: span 1 !important;
+  }
+  .full-width-card {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Header scale down */
+  .brand-logo {
+    font-size: 1.15rem;
+    gap: 8px;
+  }
+  .brand-logo-img {
+    height: 26px;
+  }
+  .booster-badge {
+    padding: 2px 8px;
+    font-size: 0.65rem;
+  }
+  .pres-header {
+    padding: 10px 12px;
+  }
+  .pres-controls {
+    padding: 10px 12px;
+  }
+  .slide-title {
+    font-size: 1.45rem;
+    margin-bottom: 12px;
+  }
+  .slide-category {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .slide-description {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  
+  /* Product image frame responsive resize */
+  .product-frame {
+    width: 220px;
+    height: 260px;
+  }
+  .rings-cyan {
+    width: 180px;
+    height: 180px;
+  }
+  .rings-green {
+    width: 200px;
+    height: 200px;
+  }
+  
+  /* Slide 8 & 10 items stack */
+  .durability-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .dur-number {
+    font-size: 1.8rem;
+  }
+  .dur-text {
+    font-size: 0.8rem;
+  }
+  .peace-metrics {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Calculator inputs & buttons alignment */
+  .drawer-content {
+    padding: 15px;
+    width: 96%;
+    border-radius: 12px;
+  }
+  .drawer-intro {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+  }
+  .drawer-header {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+  }
+  .drawer-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  /* Force columns */
+  .vehicle-selector {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .vehicle-btn {
+    padding: 8px;
+    font-size: 0.72rem;
+  }
+  .calc-input-section {
+    padding: 12px;
+    gap: 12px;
+  }
+  .calc-output-section {
+    gap: 12px;
+  }
+  .output-calc-card {
+    padding: 12px;
+  }
+  
+  /* Actions buttons row wrap & vertical stack */
+  .calc-actions-row {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .calc-actions-row button, .calc-actions-row a {
+    min-width: 100% !important;
+    font-size: 0.82rem !important;
+    padding: 10px !important;
+  }
+  
+  /* Certification badge styling cleanup */
+  .certification-strip {
+    margin-top: 15px;
+    padding-top: 15px;
+    gap: 10px;
+  }
+  .certification-strip div {
+    gap: 8px !important;
+  }
+  .certification-strip .badge-item {
+    font-size: 0.65rem !important;
+    padding: 4px 8px !important;
+  }
+  .certification-strip .badge-item img {
+    height: 14px !important;
+  }
+}
