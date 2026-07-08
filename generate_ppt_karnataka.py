@@ -127,7 +127,93 @@ def create_deck():
         slide1.shapes.add_picture(img_path, Inches(8.6), Inches(1.5), width=Inches(3.8), height=Inches(4.8))
 
     # ==========================================
-    # SLIDE 2: THE THREAT (E20 FUEL CHALLENGE)
+    # SLIDE 2: AWARENESS - THE POLICY CHALLENGE (Karnataka Edition)
+    # ==========================================
+    slide_awareness = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide_awareness)
+    add_title(slide_awareness, "Policy & Infrastructure", "ಇಂಧನ ಪರಿವರ್ತನೆಯ ಸವಾಲು (The Energy Transition Challenge)", ORANGE)
+    
+    left_box_aw = slide_awareness.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left_aw = left_box_aw.text_frame
+    tf_left_aw.word_wrap = True
+    
+    p = tf_left_aw.paragraphs[0]
+    p.text = "Karnataka's aggressive push for E20 biofuel (derived from regional sugarcane molasses) supports local agriculture but raises significant transit risks:"
+    p.font.name = 'Inter'
+    p.font.size = Pt(14.5)
+    p.font.color.rgb = MUTED
+    p.space_after = Pt(15)
+    
+    bullets_aw = [
+        ("Sugarcane Molasses Scaling:", " Karnataka's high sugarcane output accelerates E20 blending, but ethanol solvent degradation impacts vehicle fuel systems directly."),
+        ("Regional Depots & Humidity:", " Depots in coastal Karnataka (Mangaluru, Karwar) experience high relative humidity, causing phase separation and water accumulation in depot storage tanks."),
+        ("Transit Fleet Downtime:", " Public and state bus fleets suffer from injector corrosion, leading to unscheduled repairs and route downtime.")
+    ]
+    
+    for title, text in bullets_aw:
+        p_b = tf_left_aw.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(11)
+        p_b.font.color.rgb = ORANGE
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(6)
+        
+    add_slide_picture(slide_awareness, "energy_transition_challenge.png", ORANGE)
+
+    # ==========================================
+    # SLIDE 3: CONSIDERATION - INFRASTRUCTURE DEFENSE (Karnataka Edition)
+    # ==========================================
+    slide_consideration = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide_consideration)
+    add_title(slide_consideration, "Operational Economics", "ಸಾರ್ವಜನಿಕ ಆಸ್ತಿ ಮತ್ತು ಬಜೆಟ್ ಸಂರಕ್ಷಣೆ (Protecting Public Assets & Budgets)", CYAN)
+    
+    left_box_con = slide_consideration.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left_con = left_box_con.text_frame
+    tf_left_con.word_wrap = True
+    
+    p = tf_left_con.paragraphs[0]
+    p.text = "Managing regional public transportation and municipal fleets under the E20 mandate requires comparing key financial strategies:"
+    p.font.name = 'Inter'
+    p.font.size = Pt(14.5)
+    p.font.color.rgb = MUTED
+    p.space_after = Pt(15)
+    
+    bullets_con = [
+        ("Premium Fuel Scaling Cost:", " Upgrading KSRTC and municipal fleets to commercial premium fuels is budgetarily impossible, compounding state transit deficits."),
+        ("Component Failure Risks:", " Leaving fleets untreated results in premature injector failure, tank rust remediation, and lost operational hours."),
+        ("Molecular Treatment Savings:", " Implementing a regular, low-cost molecular fuel treatment shields public assets without budget inflation.")
+    ]
+    
+    for title, text in bullets_con:
+        p_b = tf_left_con.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(11)
+        p_b.font.color.rgb = CYAN
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(6)
+        
+    add_slide_picture(slide_consideration, "infrastructure_protection.png", CYAN)
+
+    # ==========================================
+    # SLIDE 4: THE THREAT (E20 FUEL CHALLENGE)
     # ==========================================
     slide2 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide2)

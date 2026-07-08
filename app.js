@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Global Presentation State
   let currentSlide = 1;
-  const totalSlides = 7;
+  const totalSlides = 11;
   let autoplayInterval = null;
   let isAutoplayActive = false;
 
@@ -60,13 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleSlideActivation(slideIndex) {
-    if (slideIndex === 4) {
+    if (slideIndex === 7) {
       animateGauges();
     } else {
       resetGauges();
     }
 
-    if (slideIndex === 7) {
+    if (slideIndex === 10) {
       triggerOdometer();
     } else {
       resetOdometer();

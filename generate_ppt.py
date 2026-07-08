@@ -118,7 +118,93 @@ def create_deck():
         slide1.shapes.add_picture(img_path, Inches(8.6), Inches(1.5), width=Inches(3.8), height=Inches(4.8))
 
     # ==========================================
-    # SLIDE 2: THE PROBLEM (E20 FUEL CHALLENGE)
+    # SLIDE 2: AWARENESS - THE POLICY CHALLENGE
+    # ==========================================
+    slide_awareness = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide_awareness)
+    add_title(slide_awareness, "Policy & Infrastructure", "The Energy Transition Challenge", ORANGE)
+    
+    left_box_aw = slide_awareness.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left_aw = left_box_aw.text_frame
+    tf_left_aw.word_wrap = True
+    
+    p = tf_left_aw.paragraphs[0]
+    p.text = "Aggressive mandates for E20 biofuel (20% ethanol) support carbon targets but present systemic risks for heavy transit and state fleets:"
+    p.font.name = 'Inter'
+    p.font.size = Pt(14.5)
+    p.font.color.rgb = MUTED
+    p.space_after = Pt(15)
+    
+    bullets_aw = [
+        ("Policy & Fuel Transition:", " Widespread scaling of E20 fuel complies with bio-energy initiatives, but accelerates chemical degradation in standard engine configurations."),
+        ("Depot Storage Vulnerability:", " Large transport depots and municipal storage tanks experience phase separation under high humidity, forming corrosive water layers."),
+        ("Fleet Asset Failure:", " Sluggish combustion and clogged high-pressure fuel injectors increase fleet vehicle maintenance budgets and road breakdowns.")
+    ]
+    
+    for title, text in bullets_aw:
+        p_b = tf_left_aw.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(11)
+        p_b.font.color.rgb = ORANGE
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(6)
+        
+    add_slide_picture(slide_awareness, "energy_transition_challenge.png", ORANGE)
+
+    # ==========================================
+    # SLIDE 3: CONSIDERATION - INFRASTRUCTURE DEFENSE
+    # ==========================================
+    slide_consideration = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide_consideration)
+    add_title(slide_consideration, "Operational Economics", "Protecting Public Assets & Budgets", CYAN)
+    
+    left_box_con = slide_consideration.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left_con = left_box_con.text_frame
+    tf_left_con.word_wrap = True
+    
+    p = tf_left_con.paragraphs[0]
+    p.text = "Preserving state transit infrastructure and managing municipal budgets under E20 dictates comparing three core routes:"
+    p.font.name = 'Inter'
+    p.font.size = Pt(14.5)
+    p.font.color.rgb = MUTED
+    p.space_after = Pt(15)
+    
+    bullets_con = [
+        ("The Premium Fuel Option:", " Upgrading utility fleets to commercial premium fuels adds 12-15% to state energy expenditures, which is budgetarily unsustainable."),
+        ("The Downtime Risk Option:", " Deferring treatment leads to premature component wear, tank repairs, and lost active operation time."),
+        ("The Active Additive Option:", " Implementing a regular, low-cost molecular fuel treatment shields public assets without capital inflation.")
+    ]
+    
+    for title, text in bullets_con:
+        p_b = tf_left_con.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(11)
+        p_b.font.color.rgb = CYAN
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(6)
+        
+    add_slide_picture(slide_consideration, "infrastructure_protection.png", CYAN)
+
+    # ==========================================
+    # SLIDE 4: THE PROBLEM (E20 FUEL CHALLENGE)
     # ==========================================
     slide2 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide2)

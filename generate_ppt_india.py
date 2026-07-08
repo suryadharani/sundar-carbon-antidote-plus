@@ -127,7 +127,93 @@ def create_deck():
         slide1.shapes.add_picture(img_path, Inches(8.6), Inches(1.5), width=Inches(3.8), height=Inches(4.8))
 
     # ==========================================
-    # SLIDE 2: THE PROBLEM (NATIONAL E20 MANDATE)
+    # SLIDE 2: AWARENESS - THE POLICY CHALLENGE (India Edition)
+    # ==========================================
+    slide_awareness = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide_awareness)
+    add_title(slide_awareness, "Policy & Infrastructure", "The Energy Transition Challenge (ऊर्जा संक्रमण की चुनौती)", ORANGE)
+    
+    left_box_aw = slide_awareness.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left_aw = left_box_aw.text_frame
+    tf_left_aw.word_wrap = True
+    
+    p = tf_left_aw.paragraphs[0]
+    p.text = "India's E20 Biofuel Policy represents a massive step toward national energy independence, but presents unseen risks for public infrastructure:"
+    p.font.name = 'Inter'
+    p.font.size = Pt(14.5)
+    p.font.color.rgb = MUTED
+    p.space_after = Pt(15)
+    
+    bullets_aw = [
+        ("National Biofuel Objectives:", " Rapid scaling of E20 fuel aims to cut crude import bills, yet ethanol's strong solvent action causes immediate corrosion on fleet parts."),
+        ("Infrastructure Vulnerability:", " State transport utilities (KSRTC, city buses, railways) experience phase separation in humid coastal zones, leaving pools of corrosive water in large fuel depots."),
+        ("Service Disruptions:", " Clogged high-pressure injectors lead to road breakdowns, high service turnaround times, and public transport delays.")
+    ]
+    
+    for title, text in bullets_aw:
+        p_b = tf_left_aw.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(11)
+        p_b.font.color.rgb = ORANGE
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(6)
+        
+    add_slide_picture(slide_awareness, "energy_transition_challenge.png", ORANGE)
+
+    # ==========================================
+    # SLIDE 3: CONSIDERATION - INFRASTRUCTURE DEFENSE (India Edition)
+    # ==========================================
+    slide_consideration = prs.slides.add_slide(blank_layout)
+    set_slide_background(slide_consideration)
+    add_title(slide_consideration, "Operational Economics", "Protecting Public Assets & Budgets (सार्वजनिक संपत्ति और बजट की सुरक्षा)", CYAN)
+    
+    left_box_con = slide_consideration.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.0), Inches(5.0))
+    tf_left_con = left_box_con.text_frame
+    tf_left_con.word_wrap = True
+    
+    p = tf_left_con.paragraphs[0]
+    p.text = "Protecting government and transit fleets against biofuel degradation requires evaluating three distinct pathways:"
+    p.font.name = 'Inter'
+    p.font.size = Pt(14.5)
+    p.font.color.rgb = MUTED
+    p.space_after = Pt(15)
+    
+    bullets_con = [
+        ("The Premium Fuel Pathway:", " Procuring commercial premium fuels escalates operating budgets by 10-15%, making it financially unviable for public fleet scale."),
+        ("The Inaction Pathway:", " Ignoring biofuel degradation leads to severe engine breakdowns, premature replacement of injector assemblies, and massive capital loss."),
+        ("The Active Additive Pathway:", " Using a localized, high-concentration molecular treatment shields active components at a fraction of the cost, preserving public utility assets.")
+    ]
+    
+    for title, text in bullets_con:
+        p_b = tf_left_con.add_paragraph()
+        p_b.text = "• "
+        p_b.font.name = 'Inter'
+        p_b.font.size = Pt(11)
+        p_b.font.color.rgb = CYAN
+        
+        run = p_b.add_run()
+        run.text = title
+        run.font.bold = True
+        run.font.color.rgb = WHITE
+        
+        run2 = p_b.add_run()
+        run2.text = text
+        run2.font.color.rgb = MUTED
+        p_b.space_after = Pt(6)
+        
+    add_slide_picture(slide_consideration, "infrastructure_protection.png", CYAN)
+
+    # ==========================================
+    # SLIDE 4: THE PROBLEM (NATIONAL E20 MANDATE)
     # ==========================================
     slide2 = prs.slides.add_slide(blank_layout)
     set_slide_background(slide2)
