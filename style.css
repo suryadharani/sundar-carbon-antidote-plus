@@ -1373,8 +1373,9 @@ body {
   }
   
   .slide {
-    padding: 30px;
+    padding: 30px 30px 80px;
     overflow-y: auto;
+    align-items: flex-start;
   }
   
   .slide-title {
@@ -1438,7 +1439,8 @@ body {
     flex-wrap: wrap;
   }
   .slide {
-    padding: 20px 20px;
+    padding: 20px 20px 100px;
+    align-items: flex-start;
   }
   .slide-title {
     font-size: 1.8rem;
@@ -1508,6 +1510,11 @@ body {
     font-size: 0.85rem;
     margin-bottom: 12px;
     line-height: 1.5;
+  }
+  
+  .slide {
+    padding: 15px 15px 120px;
+    align-items: flex-start;
   }
   
   /* Product image frame responsive resize */
