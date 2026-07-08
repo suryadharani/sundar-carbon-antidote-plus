@@ -480,16 +480,16 @@ document.addEventListener('DOMContentLoaded', () => {
   btnExhaustStandard.addEventListener('click', () => setExhaustMode('standard'));
   btnExhaustClean.addEventListener('click', () => setExhaustMode('clean'));
 
-  // Trigger when slide 6 is shown
+  // Trigger when slide 9 is shown
   slideDots.addEventListener('click', (e) => {
-    if (e.target.getAttribute('data-slide') === '6') {
+    if (e.target.getAttribute('data-slide') === '9') {
       setTimeout(() => {
         setExhaustMode('standard');
       }, 200);
     }
   });
   nextBtn.addEventListener('click', () => {
-    if (currentSlide === 6) {
+    if (currentSlide === 9) {
       setTimeout(() => {
         setExhaustMode('standard');
       }, 200);
@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // -------------------------------------------------------------
-  // SLIDE 7: ODOMETER COUNTING
+  // SLIDE 10: ODOMETER COUNTING
   // -------------------------------------------------------------
   const odometerNum = document.getElementById('odometer-num');
   const odometerDisplay = document.getElementById('odometer-display');
@@ -540,64 +540,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // -------------------------------------------------------------
-  // GENERAL VALUE SAVINGS CALCULATOR
+  // GENERAL VALUE SAVINGS CALCULATOR (NeoPlatron style)
   // -------------------------------------------------------------
-  const inputDistance = document.getElementById('input-distance');
-  const inputMileage = document.getElementById('input-mileage');
-  const inputOilCost = document.getElementById('input-oil-cost');
+  let currentVehicleType = '4-wheeler';
+  let currentTimePeriod = 'monthly'; // 'monthly' or 'yearly'
   
-  const valDistance = document.getElementById('val-distance');
-  const valMileage = document.getElementById('val-mileage');
-  const valOilCost = document.getElementById('val-oil-cost');
+  const vehicleBtns = document.querySelectorAll('#vehicle-type-selector .vehicle-btn');
+  const calcMileage = document.getElementById('calc-mileage');
+  const calcPrice = document.getElementById('calc-price');
+  const calcDistance = document.getElementById('calc-distance');
+  
+  const btnMonthly = document.getElementById('btn-monthly');
+  const btnYearly = document.getElementById('btn-yearly');
+  
+  const outFuelBefore = document.getElementById('out-fuel-before');
+  const outFuelAfter = document.getElementById('out-fuel-after');
+  const outFuelSavedOutput = document.getElementById('out-fuel-saved');
+  
+  const outMoneyBefore = document.getElementById('out-money-before');
+  const outMoneyAfter = document.getElementById('out-money-after');
+  const outMoneySavedOutput = document.getElementById('out-money-saved');
+  
+  const outMileageBefore = document.getElementById('out-mileage-before');
+  const outMileageAfter = document.getElementById('out-mileage-after');
+  const outMileageGain = document.getElementById('out-mileage-gain');
 
-  const outFuelSaved = document.getElementById('out-fuel-saved');
-  const outMoneySaved = document.getElementById('out-money-saved');
-  const outOilSaved = document.getElementById('out-oil-saved');
-  const outTotalSavings = document.getElementById('out-total-savings');
+  // Efficiency boost profile based on vehicle type
+  const efficiencyProfiles = {
+    '2-wheeler': 1.35, // +35% boost
+    '3-wheeler': 1.30, // +30% boost
+    '4-wheeler': 1.30, // +30% boost
+    '6-wheeler': 1.25  // +25% boost
+  };
 
-  function runCalculations() {
-    const d = parseFloat(inputDistance.value);
-    const m = parseFloat(inputMileage.value);
-    const oilCost = parseFloat(inputOilCost.value);
+  const defaultMileages = {
+    '2-wheeler': 45,
+    '3-wheeler': 25,
+    '4-wheeler': 15,
+    '6-wheeler': 6
+  };
 
-    // Update Slider text indicators
-    valDistance.textContent = `${d.toLocaleString()} km`;
-    valMileage.textContent = `${m} km/l`;
-    valOilCost.textContent = `₹${oilCost.toLocaleString()}`;
-
-    // Math:
-    // Fuel saved = current consumption (liters) - antidote consumption (liters)
-    // Antidote mileage is boosted by 30% -> m_new = m * 1.3
-    const standardLiters = d / m;
-    const antidoteLiters = d / (m * 1.3);
-    const litersSaved = Math.round(standardLiters - antidoteLiters);
-    
-    const fuelPrice = 100; // Average cost in ₹/liter
-    const fuelMoneySaved = litersSaved * fuelPrice;
-
-    // Oil Longevity Math:
-    // Standard oil changed every 10,000 km.
-    // Antidote oil life is 5x, so changed every 50,000 km.
-    // Standard oil changes = d / 10000
-    // Antidote oil changes = d / 50000
-    const standardChanges = d / 10000;
-    const antidoteChanges = d / 50000;
-    const oilSavings = Math.round((standardChanges - antidoteChanges) * oilCost);
-
-    // Update outputs
-    outFuelSaved.textContent = `${litersSaved} L`;
-    outMoneySaved.textContent = `₹${fuelMoneySaved.toLocaleString()}`;
-    outOilSaved.textContent = `₹${oilSavings.toLocaleString()}`;
-    
-    const totalBenefit = fuelMoneySaved + oilSavings;
-    outTotalSavings.textContent = `₹${totalBenefit.toLocaleString()}`;
+  function updateVehicleDefaultMileage(type) {
+    if (defaultMileages[type]) {
+      calcMileage.value = defaultMileages[type];
+    }
   }
 
-  // Bind inputs
-  inputDistance.addEventListener('input', runCalculations);
-  inputMileage.addEventListener('input', runCalculations);
-  inputOilCost.addEventListener('input', runCalculations);
-  
+  function runCalculations() {
+    const mileageBefore = parseFloat(calcMileage.value) || 15;
+    const pricePerLiter = parseFloat(calcPrice.value) || 100;
+    const dailyDistance = parseFloat(calcDistance.value) || 50;
+    
+    // Choose boost based on vehicle type
+    const multiplier = efficiencyProfiles[currentVehicleType] || 1.30;
+    const mileageAfter = mileageBefore * multiplier;
+    const mileageDiff = mileageAfter - mileageBefore;
+    
+    // Days in period
+    const days = currentTimePeriod === 'monthly' ? 30 : 365;
+    const totalDistance = dailyDistance * days;
+    
+    // Calculations
+    const fuelBefore = totalDistance / mileageBefore;
+    const fuelAfter = totalDistance / mileageAfter;
+    const fuelSaved = fuelBefore - fuelAfter;
+    
+    const moneyBefore = fuelBefore * pricePerLiter;
+    const moneyAfter = fuelAfter * pricePerLiter;
+    const moneySaved = moneyBefore - moneyAfter;
+    
+    // Update DOM
+    outFuelBefore.textContent = `${fuelBefore.toFixed(2)} L`;
+    outFuelAfter.textContent = `${fuelAfter.toFixed(2)} L`;
+    outFuelSavedOutput.textContent = `${fuelSaved.toFixed(2)} L`;
+    
+    outMoneyBefore.textContent = `₹${Math.round(moneyBefore).toLocaleString()}`;
+    outMoneyAfter.textContent = `₹${Math.round(moneyAfter).toLocaleString()}`;
+    outMoneySavedOutput.textContent = `₹${Math.round(moneySaved).toLocaleString()}`;
+    
+    outMileageBefore.textContent = mileageBefore.toFixed(2);
+    outMileageAfter.textContent = mileageAfter.toFixed(2);
+    outMileageGain.textContent = mileageDiff.toFixed(2);
+  }
+
+  // Event Listeners for selectors
+  vehicleBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      vehicleBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentVehicleType = btn.getAttribute('data-type');
+      updateVehicleDefaultMileage(currentVehicleType);
+      runCalculations();
+    });
+  });
+
+  btnMonthly.addEventListener('click', () => {
+    btnMonthly.classList.add('active');
+    btnYearly.classList.remove('active');
+    currentTimePeriod = 'monthly';
+    runCalculations();
+  });
+
+  btnYearly.addEventListener('click', () => {
+    btnYearly.classList.add('active');
+    btnMonthly.classList.remove('active');
+    currentTimePeriod = 'yearly';
+    runCalculations();
+  });
+
+  // Bind input listeners
+  calcMileage.addEventListener('input', runCalculations);
+  calcPrice.addEventListener('input', runCalculations);
+  calcDistance.addEventListener('input', runCalculations);
+
   // Run initial calculator compute
   runCalculations();
 

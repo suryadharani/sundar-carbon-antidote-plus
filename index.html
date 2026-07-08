@@ -488,65 +488,128 @@
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <div class="drawer-content">
       <div class="drawer-header">
-        <h2>Savings & Value Calculator</h2>
+        <h2>Calculate Your Savings</h2>
         <button class="close-btn" id="close-drawer-btn">&times;</button>
       </div>
       <div class="drawer-body">
-        <p class="drawer-intro">Adjust the parameters to estimate the financial benefits of upgrading to Sundar Carbon Antidote Plus.</p>
+        <p class="drawer-intro">See how much you can save on fuel costs and improve your vehicle's efficiency with Sundar Carbon Antidote Plus.</p>
         
-        <div class="calc-inputs">
-          <div class="input-group">
-            <label for="input-distance">Annual Driving Distance (km)</label>
-            <div class="range-wrap">
-              <input type="range" id="input-distance" min="5000" max="50000" step="1000" value="15000">
-              <span class="range-val" id="val-distance">15,000 km</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label for="input-mileage">Current Vehicle Mileage (km/l)</label>
-            <div class="range-wrap">
-              <input type="range" id="input-mileage" min="5" max="30" step="1" value="15">
-              <span class="range-val" id="val-mileage">15 km/l</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label for="input-oil-cost">Cost per Engine Oil Change (₹)</label>
-            <div class="range-wrap">
-              <input type="range" id="input-oil-cost" min="1500" max="10000" step="250" value="3000">
-              <span class="range-val" id="val-oil-cost">₹3,000</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="calc-outputs">
-          <h3>Estimated Benefits per Year</h3>
-          
-          <div class="output-cards">
-            <div class="out-card">
-              <span class="out-val green-glow-text" id="out-fuel-saved">115 L</span>
-              <span class="out-lbl">Fuel Saved</span>
+        <div class="calc-grid-layout">
+          <!-- Left Column: Inputs -->
+          <div class="calc-input-section">
+            <h3 class="section-title"><span class="icon-inline">📝</span> Input Details</h3>
+            
+            <div class="input-group">
+              <label>Vehicle Type</label>
+              <div class="vehicle-selector" id="vehicle-type-selector">
+                <button class="vehicle-btn" data-type="2-wheeler">2-wheeler</button>
+                <button class="vehicle-btn" data-type="3-wheeler">3-wheeler</button>
+                <button class="vehicle-btn active" data-type="4-wheeler">4-wheeler</button>
+                <button class="vehicle-btn" data-type="6-wheeler">6-wheeler</button>
+              </div>
             </div>
             
-            <div class="out-card">
-              <span class="out-val green-glow-text" id="out-money-saved">₹11,500</span>
-              <span class="out-lbl">Financial Fuel Savings</span>
+            <div class="input-group">
+              <label for="calc-mileage">Current Vehicle Mileage (km/L)</label>
+              <div class="input-with-icon">
+                <span class="input-icon">⚙️</span>
+                <input type="number" id="calc-mileage" value="15" min="2" max="60">
+              </div>
+              <span class="input-helper">Enter your vehicle's current fuel efficiency</span>
             </div>
-
-            <div class="out-card">
-              <span class="out-val cyan-glow-text" id="out-oil-saved">₹4,800</span>
-              <span class="out-lbl">Oil Longevity Savings</span>
+            
+            <div class="input-group">
+              <label for="calc-price">Fuel Price (₹/Liter)</label>
+              <div class="input-with-icon">
+                <span class="input-icon">₹</span>
+                <input type="number" id="calc-price" value="100" min="50" max="250">
+              </div>
             </div>
-
-            <div class="out-card card-total">
-              <span class="out-val green-glow-text" id="out-total-savings">₹16,300</span>
-              <span class="out-lbl">Total Annual Benefit</span>
+            
+            <div class="input-group">
+              <label for="calc-distance">Avg. Daily Distance (km)</label>
+              <div class="input-with-icon">
+                <span class="input-icon">📍</span>
+                <input type="number" id="calc-distance" value="50" min="5" max="500">
+              </div>
             </div>
           </div>
-
-          <div class="calc-footer-info">
-            <p>*Calculations are based on fuel price of ₹100/liter, 30% fuel efficiency boost, and 5x oil longevity (saving on 4 oil changes over the extended lifespan of the oil).</p>
+          
+          <!-- Right Column: Outputs -->
+          <div class="calc-output-section">
+            <div class="time-toggle-tab">
+              <button class="time-tab active" id="btn-monthly">Monthly</button>
+              <button class="time-tab" id="btn-yearly">Yearly</button>
+            </div>
+            
+            <div class="output-cards-grid">
+              <!-- Card 1: Fuel Consumption -->
+              <div class="output-calc-card">
+                <div class="card-header-calc">
+                  <span class="card-icon-calc">⛽</span>
+                  <h4>Fuel Consumption</h4>
+                </div>
+                <div class="card-row">
+                  <span>Before:</span>
+                  <span id="out-fuel-before" class="muted-val">100.00 L</span>
+                </div>
+                <div class="card-row">
+                  <span>After:</span>
+                  <span id="out-fuel-after" class="muted-val">76.92 L</span>
+                </div>
+                <div class="card-row highlight-row">
+                  <span>Saved:</span>
+                  <span id="out-fuel-saved" class="green-glow-text">23.08 L</span>
+                </div>
+              </div>
+              
+              <!-- Card 2: Money Spent -->
+              <div class="output-calc-card">
+                <div class="card-header-calc">
+                  <span class="card-icon-calc">₹</span>
+                  <h4>Money Spent</h4>
+                </div>
+                <div class="card-row">
+                  <span>Before:</span>
+                  <span id="out-money-before" class="muted-val">₹10,000</span>
+                </div>
+                <div class="card-row">
+                  <span>After:</span>
+                  <span id="out-money-after" class="muted-val">₹7,692</span>
+                </div>
+                <div class="card-row highlight-row">
+                  <span>Saved:</span>
+                  <span id="out-money-saved" class="green-glow-text">₹2,308</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Card 3: Vehicle Mileage -->
+            <div class="output-calc-card full-width-card">
+              <div class="card-header-calc">
+                <span class="card-icon-calc">📈</span>
+                <h4>Vehicle Mileage</h4>
+              </div>
+              <div class="mileage-comparison-row">
+                <div class="mil-item">
+                  <span class="mil-label">Before</span>
+                  <span class="mil-val orange-glow-text" id="out-mileage-before">15.00</span>
+                  <span class="mil-unit">km/liter</span>
+                </div>
+                <div class="mil-item">
+                  <span class="mil-label">After*</span>
+                  <span class="mil-val green-glow-text" id="out-mileage-after">19.50</span>
+                  <span class="mil-unit">km/liter</span>
+                </div>
+                <div class="mil-item">
+                  <span class="mil-label">Gain</span>
+                  <span class="mil-val cyan-glow-text" id="out-mileage-gain">4.50</span>
+                  <span class="mil-unit">km/liter</span>
+                </div>
+              </div>
+            </div>
+            
+            <p class="calc-disclaimer">* The above calculations represent the expected mileage boost based on certified Sundar Carbon Antidote Plus efficiency profiles (+30% average gains; varies slightly by configuration).</p>
           </div>
         </div>
       </div>
