@@ -580,14 +580,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnDownloadReport = document.getElementById('btn-download-report');
   const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
 
-  // Parameters configuration per vehicle type
+  // Parameters configuration per vehicle type (Standardized 30% Mileage Boost = 1.30 Multiplier)
   const vehicleConfig = {
-    '2-wheeler': { distance: 15000, multiplier: 1.35, defaultMileage: 45, oilIntervalStandard: 3000, oilIntervalAntidote: 15000, oilUnitCost: 500, maintBefore: 5000, maintAfter: 1500 },
+    '2-wheeler': { distance: 15000, multiplier: 1.30, defaultMileage: 45, oilIntervalStandard: 3000, oilIntervalAntidote: 15000, oilUnitCost: 500, maintBefore: 5000, maintAfter: 1500 },
     '3-wheeler': { distance: 15000, multiplier: 1.30, defaultMileage: 25, oilIntervalStandard: 3000, oilIntervalAntidote: 15000, oilUnitCost: 600, maintBefore: 8000, maintAfter: 2400 },
     '4-wheeler': { distance: 100000, multiplier: 1.30, defaultMileage: 15, oilIntervalStandard: 10000, oilIntervalAntidote: 50000, oilUnitCost: 3000, maintBefore: 25000, maintAfter: 7500 },
-    '6-wheeler': { distance: 100000, multiplier: 1.25, defaultMileage: 6, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 8000, maintBefore: 80000, maintAfter: 24000 },
-    '10-wheeler': { distance: 100000, multiplier: 1.25, defaultMileage: 4, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 12000, maintBefore: 120000, maintAfter: 36000 },
-    '14-wheeler': { distance: 100000, multiplier: 1.25, defaultMileage: 3, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 16000, maintBefore: 160000, maintAfter: 48000 }
+    '6-wheeler': { distance: 100000, multiplier: 1.30, defaultMileage: 6, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 8000, maintBefore: 80000, maintAfter: 24000 },
+    '10-wheeler': { distance: 100000, multiplier: 1.30, defaultMileage: 4, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 12000, maintBefore: 120000, maintAfter: 36000 },
+    '14-wheeler': { distance: 100000, multiplier: 1.30, defaultMileage: 3, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 16000, maintBefore: 160000, maintAfter: 48000 }
   };
 
   function updateVehicleDefaultMileage(type) {
@@ -596,86 +596,117 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function runCalculations() {
+  // Audited Unified Calculations Engine to guarantee perfect mathematical alignment and consistency
+  function calculateMetrics() {
     const config = vehicleConfig[currentVehicleType] || vehicleConfig['4-wheeler'];
     const mileageBefore = parseFloat(calcMileage.value) || config.defaultMileage;
     const pricePerLiter = parseFloat(calcPrice.value) || 100;
-    
-    // Choose boost and distance based on vehicle type config
     const distance = config.distance;
+    
     const mileageAfter = mileageBefore * config.multiplier;
     const mileageDiff = mileageAfter - mileageBefore;
     
-    // Fuel Cost Calculations
+    // Fuel calculations
     const fuelBeforeLiters = distance / mileageBefore;
     const fuelAfterLiters = distance / mileageAfter;
-    const fuelBeforeCost = fuelBeforeLiters * pricePerLiter;
-    const fuelAfterCost = fuelAfterLiters * pricePerLiter;
-    const fuelSavedCost = fuelBeforeCost - fuelAfterCost;
     const litersSaved = fuelBeforeLiters - fuelAfterLiters;
     
-    // Engine Oil Cost Calculations
+    const fuelBeforeCostRaw = fuelBeforeLiters * pricePerLiter;
+    const fuelAfterCostRaw = fuelAfterLiters * pricePerLiter;
+    
+    // Core integer rounding to ensure perfect grid alignment
+    const fuelBeforeCost = Math.round(fuelBeforeCostRaw);
+    const fuelAfterCost = Math.round(fuelAfterCostRaw);
+    const fuelSavedCost = fuelBeforeCost - fuelAfterCost;
+    
+    // Oil calculations
     const oilChangesBefore = distance / config.oilIntervalStandard;
     const oilChangesAfter = distance / config.oilIntervalAntidote;
-    const oilCostBefore = oilChangesBefore * config.oilUnitCost;
-    const oilCostAfter = oilChangesAfter * config.oilUnitCost;
+    const oilCostBefore = Math.round(oilChangesBefore * config.oilUnitCost);
+    const oilCostAfter = Math.round(oilChangesAfter * config.oilUnitCost);
     const oilSavedCost = oilCostBefore - oilCostAfter;
     
-    // Maintenance Cost Calculations
-    const maintCostBefore = config.maintBefore;
-    const maintCostAfter = config.maintAfter;
+    // Maintenance calculations
+    const maintCostBefore = Math.round(config.maintBefore);
+    const maintCostAfter = Math.round(config.maintAfter);
     const maintSavedCost = maintCostBefore - maintCostAfter;
     
-    // Totals
+    // Grand Totals: calculated as the sum of rounded integer parts to prevent rounding discrepancies
     const totalCostBefore = fuelBeforeCost + oilCostBefore + maintCostBefore;
     const totalCostAfter = fuelAfterCost + oilCostAfter + maintCostAfter;
     const totalCostSavings = totalCostBefore - totalCostAfter;
     const co2Reduced = litersSaved * 2.31;
     
+    return {
+      distance,
+      mileageBefore,
+      mileageAfter,
+      mileageDiff,
+      litersSaved,
+      fuelBeforeCost,
+      fuelAfterCost,
+      fuelSavedCost,
+      oilCostBefore,
+      oilCostAfter,
+      oilSavedCost,
+      maintCostBefore,
+      maintCostAfter,
+      maintSavedCost,
+      totalCostBefore,
+      totalCostAfter,
+      totalCostSavings,
+      co2Reduced,
+      pricePerLiter
+    };
+  }
+
+  function runCalculations() {
+    const metrics = calculateMetrics();
+    
     // Update DOM basis title
-    calculationBasisTitle.textContent = `Calculated for ${distance.toLocaleString()} km`;
+    calculationBasisTitle.textContent = `Calculated for ${metrics.distance.toLocaleString()} km`;
     
     // Update Fuel Card
-    outFuelBefore.textContent = `₹${Math.round(fuelBeforeCost).toLocaleString()}`;
-    outFuelAfter.textContent = `₹${Math.round(fuelAfterCost).toLocaleString()}`;
-    outFuelSavedOutput.textContent = `₹${Math.round(fuelSavedCost).toLocaleString()}`;
+    outFuelBefore.textContent = `₹${metrics.fuelBeforeCost.toLocaleString()}`;
+    outFuelAfter.textContent = `₹${metrics.fuelAfterCost.toLocaleString()}`;
+    outFuelSavedOutput.textContent = `₹${metrics.fuelSavedCost.toLocaleString()}`;
     
     // Update Oil Card
-    outOilBefore.textContent = `₹${Math.round(oilCostBefore).toLocaleString()}`;
-    outOilAfter.textContent = `₹${Math.round(oilCostAfter).toLocaleString()}`;
-    outOilSavedOutput.textContent = `₹${Math.round(oilSavedCost).toLocaleString()}`;
+    outOilBefore.textContent = `₹${metrics.oilCostBefore.toLocaleString()}`;
+    outOilAfter.textContent = `₹${metrics.oilCostAfter.toLocaleString()}`;
+    outOilSavedOutput.textContent = `₹${metrics.oilSavedCost.toLocaleString()}`;
     
     // Update Maintenance Card
-    outMaintBefore.textContent = `₹${Math.round(maintCostBefore).toLocaleString()}`;
-    outMaintAfter.textContent = `₹${Math.round(maintCostAfter).toLocaleString()}`;
-    outMaintSavedOutput.textContent = `₹${Math.round(maintSavedCost).toLocaleString()}`;
+    outMaintBefore.textContent = `₹${metrics.maintCostBefore.toLocaleString()}`;
+    outMaintAfter.textContent = `₹${metrics.maintCostAfter.toLocaleString()}`;
+    outMaintSavedOutput.textContent = `₹${metrics.maintSavedCost.toLocaleString()}`;
 
     // Update CO2 Card
-    outCo2Fuel.textContent = `${litersSaved.toFixed(1)} L`;
-    outCo2Reduced.textContent = `${co2Reduced.toFixed(1)} kg`;
+    outCo2Fuel.textContent = `${metrics.litersSaved.toFixed(1)} L`;
+    outCo2Reduced.textContent = `${metrics.co2Reduced.toFixed(1)} kg`;
     
-    const treesEquivalent = Math.round(co2Reduced / 22);
+    const treesEquivalent = Math.round(metrics.co2Reduced / 22);
     outCo2Trees.textContent = `🌳 Planting ${treesEquivalent.toLocaleString()} Trees`;
     
     // Update Total Summary Card
-    outTotalBefore.textContent = `₹${Math.round(totalCostBefore).toLocaleString()}`;
-    outTotalAfter.textContent = `₹${Math.round(totalCostAfter).toLocaleString()}`;
-    outTotalSavings.textContent = `₹${Math.round(totalCostSavings).toLocaleString()}`;
+    outTotalBefore.textContent = `₹${metrics.totalCostBefore.toLocaleString()}`;
+    outTotalAfter.textContent = `₹${metrics.totalCostAfter.toLocaleString()}`;
+    outTotalSavings.textContent = `₹${metrics.totalCostSavings.toLocaleString()}`;
     
     // Update Mileage Card
-    outMileageBefore.textContent = mileageBefore.toFixed(2);
-    outMileageAfter.textContent = mileageAfter.toFixed(2);
-    outMileageGain.textContent = mileageDiff.toFixed(2);
+    outMileageBefore.textContent = metrics.mileageBefore.toFixed(2);
+    outMileageAfter.textContent = metrics.mileageAfter.toFixed(2);
+    outMileageGain.textContent = metrics.mileageDiff.toFixed(2);
 
     // Update fun savings comparison list
     const suggestions = [];
-    if (totalCostSavings < 15000) {
+    if (metrics.totalCostSavings < 15000) {
       suggestions.push("🛵 One year of vehicle insurance");
       suggestions.push("🎧 Premium wireless earbuds");
-    } else if (totalCostSavings < 35000) {
+    } else if (metrics.totalCostSavings < 35000) {
       suggestions.push("🛵 One year of vehicle insurance");
       suggestions.push("📺 A new Smart TV");
-    } else if (totalCostSavings < 75000) {
+    } else if (metrics.totalCostSavings < 75000) {
       suggestions.push("📱 A new smartphone");
       suggestions.push("📺 A new Smart TV");
     } else {
@@ -683,7 +714,7 @@ document.addEventListener('DOMContentLoaded', () => {
       suggestions.push("📱 A premium smartphone");
     }
     
-    funSavingsAmount.textContent = `₹${Math.round(totalCostSavings).toLocaleString()}`;
+    funSavingsAmount.textContent = `₹${metrics.totalCostSavings.toLocaleString()}`;
     funSavingsSuggestions.innerHTML = suggestions.map(s => `
       <span style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; background: rgba(255, 255, 255, 0.02); display: flex; align-items: center; color: var(--text-main); font-weight: 500; font-family: 'Inter';">
         ${s}
@@ -691,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
 
     // Update Smart Insight
-    smartInsightText.innerHTML = `Based on your current mileage of <strong>${mileageBefore.toFixed(1)} km/L</strong> and fuel price of <strong>₹${pricePerLiter}</strong>, your vehicle could potentially save <strong>₹${Math.round(totalCostSavings).toLocaleString()}</strong> over <strong>${distance.toLocaleString()} km</strong> while reducing fuel consumption and associated CO₂ emissions.`;
+    smartInsightText.innerHTML = `Based on your current mileage of <strong>${metrics.mileageBefore.toFixed(1)} km/L</strong> and fuel price of <strong>₹${metrics.pricePerLiter}</strong>, your vehicle could potentially save <strong>₹${metrics.totalCostSavings.toLocaleString()}</strong> over <strong>${metrics.distance.toLocaleString()} km</strong> while reducing fuel consumption and associated CO₂ emissions.`;
   }
 
   // Event Listeners for selectors
@@ -709,81 +740,29 @@ document.addEventListener('DOMContentLoaded', () => {
   calcMileage.addEventListener('input', runCalculations);
   calcPrice.addEventListener('input', runCalculations);
 
-  // WhatsApp Share Event
+  // WhatsApp Share Event using identical audited calculations metrics
   btnShareWhatsapp.addEventListener('click', () => {
-    const config = vehicleConfig[currentVehicleType] || vehicleConfig['4-wheeler'];
-    const mileageBefore = parseFloat(calcMileage.value) || config.defaultMileage;
-    const mileageAfter = mileageBefore * config.multiplier;
-    const distance = config.distance;
-    
-    const fuelBeforeLiters = distance / mileageBefore;
-    const fuelAfterLiters = distance / mileageAfter;
-    const litersSaved = fuelBeforeLiters - fuelAfterLiters;
-    
-    const pricePerLiter = parseFloat(calcPrice.value) || 100;
-    const fuelBeforeCost = fuelBeforeLiters * pricePerLiter;
-    const fuelAfterCost = fuelAfterLiters * pricePerLiter;
-    
-    const oilChangesBefore = distance / config.oilIntervalStandard;
-    const oilChangesAfter = distance / config.oilIntervalAntidote;
-    const oilCostBefore = oilChangesBefore * config.oilUnitCost;
-    const oilCostAfter = oilChangesAfter * config.oilUnitCost;
-    
-    const maintCostBefore = config.maintBefore;
-    const maintCostAfter = config.maintAfter;
-    
-    const totalCostBefore = fuelBeforeCost + oilCostBefore + maintCostBefore;
-    const totalCostAfter = fuelAfterCost + oilCostAfter + maintCostAfter;
-    const totalCostSavings = totalCostBefore - totalCostAfter;
-    const co2Reduced = litersSaved * 2.31;
+    const metrics = calculateMetrics();
     
     const msg = `🚗 I calculated my fuel savings using the Sundar Carbon Savings Calculator!\n\n` +
                 `• Vehicle Type: ${currentVehicleType}\n` +
-                `• Target Distance: ${distance.toLocaleString()} km\n` +
-                `• Current Mileage: ${mileageBefore.toFixed(2)} km/L\n` +
-                `• Projected Mileage: ${mileageAfter.toFixed(2)} km/L\n` +
-                `• Fuel Saved: ${litersSaved.toFixed(1)} Litres\n` +
-                `• CO₂ Emissions Reduced: ${co2Reduced.toFixed(1)} kg\n` +
-                `• Estimated Net Savings: ₹${Math.round(totalCostSavings).toLocaleString()}\n\n` +
+                `• Target Distance: ${metrics.distance.toLocaleString()} km\n` +
+                `• Current Mileage: ${metrics.mileageBefore.toFixed(2)} km/L\n` +
+                `• Projected Mileage: ${metrics.mileageAfter.toFixed(2)} km/L\n` +
+                `• Fuel Saved: ${metrics.litersSaved.toFixed(1)} Litres\n` +
+                `• CO₂ Emissions Reduced: ${metrics.co2Reduced.toFixed(1)} kg\n` +
+                `• Estimated Net Savings: ₹${metrics.totalCostSavings.toLocaleString()}\n\n` +
                 `Calculate yours:\n` +
                 `https://suryadharani.github.io/sundar-carbon-antidote-plus/`;
                 
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
   });
 
-  // PDF Report Download Event
+  // PDF Report Download Event using identical audited calculations metrics
   btnDownloadReport.addEventListener('click', () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    
-    const config = vehicleConfig[currentVehicleType] || vehicleConfig['4-wheeler'];
-    const mileageBefore = parseFloat(calcMileage.value) || config.defaultMileage;
-    const mileageAfter = mileageBefore * config.multiplier;
-    const distance = config.distance;
-    
-    const fuelBeforeLiters = distance / mileageBefore;
-    const fuelAfterLiters = distance / mileageAfter;
-    const litersSaved = fuelBeforeLiters - fuelAfterLiters;
-    
-    const pricePerLiter = parseFloat(calcPrice.value) || 100;
-    const fuelBeforeCost = fuelBeforeLiters * pricePerLiter;
-    const fuelAfterCost = fuelAfterLiters * pricePerLiter;
-    const fuelSavedCost = fuelBeforeCost - fuelAfterCost;
-    
-    const oilChangesBefore = distance / config.oilIntervalStandard;
-    const oilChangesAfter = distance / config.oilIntervalAntidote;
-    const oilCostBefore = oilChangesBefore * config.oilUnitCost;
-    const oilCostAfter = oilChangesAfter * config.oilUnitCost;
-    const oilSavedCost = oilCostBefore - oilCostAfter;
-    
-    const maintCostBefore = config.maintBefore;
-    const maintCostAfter = config.maintAfter;
-    const maintSavedCost = maintCostBefore - maintCostAfter;
-    
-    const totalCostBefore = fuelBeforeCost + oilCostBefore + maintCostBefore;
-    const totalCostAfter = fuelAfterCost + oilCostAfter + maintCostAfter;
-    const totalCostSavings = totalCostBefore - totalCostAfter;
-    const co2Reduced = litersSaved * 2.31;
+    const metrics = calculateMetrics();
     
     // PDF Styles & Branding colors
     doc.setFillColor(15, 17, 26); // Dark Theme color block header
@@ -827,9 +806,9 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setFontSize(10);
     doc.setTextColor(50, 50, 50);
     doc.text(`- Vehicle Configuration: ${currentVehicleType}`, 20, 83);
-    doc.text(`- Current Mileage: ${mileageBefore.toFixed(2)} km/L`, 20, 90);
-    doc.text(`- Fuel Base Price: Rs. ${pricePerLiter} / Liter`, 20, 97);
-    doc.text(`- Analysis Baseline Distance: ${distance.toLocaleString()} km`, 20, 104);
+    doc.text(`- Current Mileage: ${metrics.mileageBefore.toFixed(2)} km/L`, 20, 90);
+    doc.text(`- Fuel Base Price: Rs. ${metrics.pricePerLiter} / Liter`, 20, 97);
+    doc.text(`- Analysis Baseline Distance: ${metrics.distance.toLocaleString()} km`, 20, 104);
     
     // Savings Table Section
     doc.setFont("helvetica", "bold");
@@ -859,26 +838,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
     doc.setFont("helvetica", "normal");
     doc.text("Fuel Mileage", 18, 138);
-    doc.text(`${mileageBefore.toFixed(2)} km/L`, 103, 138);
-    doc.text(`${mileageAfter.toFixed(2)} km/L`, 153, 138);
+    doc.text(`${metrics.mileageBefore.toFixed(2)} km/L`, 103, 138);
+    doc.text(`${metrics.mileageAfter.toFixed(2)} km/L`, 153, 138);
     
     doc.text("Fuel Expenditure", 18, 148);
-    doc.text(`Rs. ${Math.round(fuelBeforeCost).toLocaleString()}`, 103, 148);
-    doc.text(`Rs. ${Math.round(fuelAfterCost).toLocaleString()}`, 153, 148);
+    doc.text(`Rs. ${metrics.fuelBeforeCost.toLocaleString()}`, 103, 148);
+    doc.text(`Rs. ${metrics.fuelAfterCost.toLocaleString()}`, 153, 148);
     
     doc.text("Engine Oil Cost", 18, 158);
-    doc.text(`Rs. ${Math.round(oilCostBefore).toLocaleString()}`, 103, 158);
-    doc.text(`Rs. ${Math.round(oilCostAfter).toLocaleString()}`, 153, 158);
+    doc.text(`Rs. ${metrics.oilCostBefore.toLocaleString()}`, 103, 158);
+    doc.text(`Rs. ${metrics.oilCostAfter.toLocaleString()}`, 153, 158);
     
     doc.text("Maintenance Cost", 18, 168);
-    doc.text(`Rs. ${Math.round(maintCostBefore).toLocaleString()}`, 103, 168);
-    doc.text(`Rs. ${Math.round(maintCostAfter).toLocaleString()}`, 153, 168);
+    doc.text(`Rs. ${metrics.maintCostBefore.toLocaleString()}`, 103, 168);
+    doc.text(`Rs. ${metrics.maintCostAfter.toLocaleString()}`, 153, 168);
     
     // Bottom Total Operational Row
     doc.setFont("helvetica", "bold");
     doc.text("Total Operational Cost", 18, 174);
-    doc.text(`Rs. ${Math.round(totalCostBefore).toLocaleString()}`, 103, 174);
-    doc.text(`Rs. ${Math.round(totalCostAfter).toLocaleString()}`, 153, 174);
+    doc.text(`Rs. ${metrics.totalCostBefore.toLocaleString()}`, 103, 174);
+    doc.text(`Rs. ${metrics.totalCostAfter.toLocaleString()}`, 153, 174);
     
     // Savings Summary Panel
     doc.setFillColor(235, 250, 240); // Soft green
@@ -889,11 +868,11 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setTextColor(40, 120, 60);
     doc.text("NET VALUED SAVINGS:", 20, 197);
     doc.setFontSize(14);
-    doc.text(`Rs. ${Math.round(totalCostSavings).toLocaleString()}`, 80, 198);
+    doc.text(`Rs. ${metrics.totalCostSavings.toLocaleString()}`, 80, 198);
     
     doc.setFontSize(9.5);
-    doc.text(`CO2 Reduced: ${co2Reduced.toFixed(1)} kg (Saved ${litersSaved.toFixed(1)} L)`, 115, 193);
-    const pdfTrees = Math.round(co2Reduced / 22);
+    doc.text(`CO2 Reduced: ${metrics.co2Reduced.toFixed(1)} kg (Saved ${metrics.litersSaved.toFixed(1)} L)`, 115, 193);
+    const pdfTrees = Math.round(metrics.co2Reduced / 22);
     doc.text(`Equivalent to planting ${pdfTrees.toLocaleString()} Trees`, 115, 200);
     
     // Smart Insight summary text box
@@ -911,7 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setFontSize(9);
     doc.setTextColor(80, 80, 80);
     const insightLines = doc.splitTextToSize(
-      `Based on your specifications, upgrading to Sundar Carbon Antidote Plus protects your engine systems, yielding Rs. ${Math.round(totalCostSavings).toLocaleString()} in total economic savings and reducing CO2 footprints by ${co2Reduced.toFixed(1)} kg over ${distance.toLocaleString()} km.`,
+      `Based on your specifications, upgrading to Sundar Carbon Antidote Plus protects your engine systems, yielding Rs. ${metrics.totalCostSavings.toLocaleString()} in total economic savings and reducing CO2 footprints by ${metrics.co2Reduced.toFixed(1)} kg over ${metrics.distance.toLocaleString()} km.`,
       170
     );
     doc.text(insightLines, 20, 228);
