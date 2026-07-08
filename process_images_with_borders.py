@@ -73,7 +73,7 @@ def main():
         ("drivetrain_wear.png", CYAN),
         ("clean_emissions.png", GREEN),
         ("longevity_road.png", GREEN),
-        ("universal_vehicles_india.png", CYAN)
+        ("universal_vehicles_india.jpg", CYAN)
     ]
     
     for img_name, color in tasks:

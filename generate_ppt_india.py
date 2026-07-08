@@ -546,7 +546,7 @@ def create_deck():
     add_slide_picture(slide9, "universal_vehicles_india.png", CYAN)
 
     # Save presentation
-    output_filename = "What is our Product - India_final.pptx"
+    output_filename = "What is our Product - India_final_poster.pptx"
     prs.save(output_filename)
     print(f"Presentation saved successfully as {output_filename}")
 
