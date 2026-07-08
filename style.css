@@ -1606,3 +1606,26 @@ body {
     height: 14px !important;
   }
 }
+
+/* ==========================================
+   MOBILE BROWSER COMPATIBILITY FIXES (Safari/Chrome iOS/Android)
+   ========================================== */
+
+/* Dynamic viewport height normalization to prevent toolbar cut-off */
+body, .presentation-container, .calculator-drawer {
+  height: 100dvh !important;
+}
+
+/* Vendor prefix normalization for WebKit (iOS Safari) glassmorphism blur */
+.pres-header, .pres-controls, .interactive-card, .molecular-chamber, .engine-sim-box, .emission-box, .drawer-overlay {
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+.interactive-card, .molecular-chamber, .engine-sim-box, .emission-box {
+  -webkit-backdrop-filter: blur(15px) !important;
+}
+
+/* Normalization for iOS Safari input button defaults */
+input[type="number"], button, .btn {
+  -webkit-appearance: none;
+  appearance: none;
+}
