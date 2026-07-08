@@ -501,11 +501,13 @@
             
             <div class="input-group">
               <label>Vehicle Type</label>
-              <div class="vehicle-selector" id="vehicle-type-selector">
+              <div class="vehicle-selector" id="vehicle-type-selector" style="grid-template-columns: repeat(3, 1fr);">
                 <button class="vehicle-btn" data-type="2-wheeler">2-wheeler</button>
                 <button class="vehicle-btn" data-type="3-wheeler">3-wheeler</button>
                 <button class="vehicle-btn active" data-type="4-wheeler">4-wheeler</button>
                 <button class="vehicle-btn" data-type="6-wheeler">6-wheeler</button>
+                <button class="vehicle-btn" data-type="10-wheeler">10-wheeler</button>
+                <button class="vehicle-btn" data-type="14-wheeler">14-wheeler</button>
               </div>
             </div>
             
@@ -513,7 +515,7 @@
               <label for="calc-mileage">Current Vehicle Mileage (km/L)</label>
               <div class="input-with-icon">
                 <span class="input-icon">⚙️</span>
-                <input type="number" id="calc-mileage" value="15" min="2" max="60">
+                <input type="number" id="calc-mileage" value="15" min="1" max="60">
               </div>
               <span class="input-helper">Enter your vehicle's current fuel efficiency</span>
             </div>
@@ -525,67 +527,98 @@
                 <input type="number" id="calc-price" value="100" min="50" max="250">
               </div>
             </div>
-            
-            <div class="input-group">
-              <label for="calc-distance">Avg. Daily Distance (km)</label>
-              <div class="input-with-icon">
-                <span class="input-icon">📍</span>
-                <input type="number" id="calc-distance" value="50" min="5" max="500">
-              </div>
-            </div>
           </div>
           
           <!-- Right Column: Outputs -->
           <div class="calc-output-section">
-            <div class="time-toggle-tab">
-              <button class="time-tab active" id="btn-monthly">Monthly</button>
-              <button class="time-tab" id="btn-yearly">Yearly</button>
+            <div class="calculation-basis-header" id="calculation-basis-title" style="text-align: center; background: rgba(0, 240, 255, 0.05); border: 1px dashed var(--cyan); border-radius: 8px; padding: 10px; font-family: 'Outfit'; font-weight: 700; color: var(--cyan);">
+              Calculated for 1,00,000 km
             </div>
             
-            <div class="output-cards-grid">
-              <!-- Card 1: Fuel Consumption -->
+            <div class="output-cards-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+              <!-- Card 1: Fuel Expenditure -->
               <div class="output-calc-card">
                 <div class="card-header-calc">
                   <span class="card-icon-calc">⛽</span>
-                  <h4>Fuel Consumption</h4>
+                  <h4>Fuel Expenditure</h4>
                 </div>
                 <div class="card-row">
                   <span>Before:</span>
-                  <span id="out-fuel-before" class="muted-val">100.00 L</span>
+                  <span id="out-fuel-before" class="muted-val">₹0</span>
                 </div>
                 <div class="card-row">
                   <span>After:</span>
-                  <span id="out-fuel-after" class="muted-val">76.92 L</span>
+                  <span id="out-fuel-after" class="muted-val">₹0</span>
                 </div>
                 <div class="card-row highlight-row">
                   <span>Saved:</span>
-                  <span id="out-fuel-saved" class="green-glow-text">23.08 L</span>
+                  <span id="out-fuel-saved" class="green-glow-text">₹0</span>
                 </div>
               </div>
               
-              <!-- Card 2: Money Spent -->
+              <!-- Card 2: Engine Oil Cost -->
               <div class="output-calc-card">
                 <div class="card-header-calc">
-                  <span class="card-icon-calc">₹</span>
-                  <h4>Money Spent</h4>
+                  <span class="card-icon-calc">🛢️</span>
+                  <h4>Engine Oil Cost</h4>
                 </div>
                 <div class="card-row">
                   <span>Before:</span>
-                  <span id="out-money-before" class="muted-val">₹10,000</span>
+                  <span id="out-oil-before" class="muted-val">₹0</span>
                 </div>
                 <div class="card-row">
                   <span>After:</span>
-                  <span id="out-money-after" class="muted-val">₹7,692</span>
+                  <span id="out-oil-after" class="muted-val">₹0</span>
                 </div>
                 <div class="card-row highlight-row">
                   <span>Saved:</span>
-                  <span id="out-money-saved" class="green-glow-text">₹2,308</span>
+                  <span id="out-oil-saved" class="green-glow-text">₹0</span>
+                </div>
+              </div>
+
+              <!-- Card 3: Maintenance Cost -->
+              <div class="output-calc-card">
+                <div class="card-header-calc">
+                  <span class="card-icon-calc">🔧</span>
+                  <h4>Maintenance Cost</h4>
+                </div>
+                <div class="card-row">
+                  <span>Before:</span>
+                  <span id="out-maint-before" class="muted-val">₹0</span>
+                </div>
+                <div class="card-row">
+                  <span>After:</span>
+                  <span id="out-maint-after" class="muted-val">₹0</span>
+                </div>
+                <div class="card-row highlight-row">
+                  <span>Saved:</span>
+                  <span id="out-maint-saved" class="green-glow-text">₹0</span>
+                </div>
+              </div>
+
+              <!-- Card 4: Total Value Summary -->
+              <div class="output-calc-card card-total">
+                <div class="card-header-calc">
+                  <span class="card-icon-calc">💎</span>
+                  <h4>Total Value Summary</h4>
+                </div>
+                <div class="card-row">
+                  <span>Total Before:</span>
+                  <span id="out-total-before" class="muted-val">₹0</span>
+                </div>
+                <div class="card-row">
+                  <span>Total After:</span>
+                  <span id="out-total-after" class="muted-val">₹0</span>
+                </div>
+                <div class="card-row highlight-row" style="color: var(--green);">
+                  <span>Net Savings:</span>
+                  <span id="out-total-savings" class="green-glow-text" style="font-size: 1.1rem;">₹0</span>
                 </div>
               </div>
             </div>
             
-            <!-- Card 3: Vehicle Mileage -->
-            <div class="output-calc-card full-width-card">
+            <!-- Vehicle Mileage Info Card -->
+            <div class="output-calc-card full-width-card" style="grid-column: span 2;">
               <div class="card-header-calc">
                 <span class="card-icon-calc">📈</span>
                 <h4>Vehicle Mileage</h4>
@@ -609,7 +642,7 @@
               </div>
             </div>
             
-            <p class="calc-disclaimer">* The above calculations represent the expected mileage boost based on certified Sundar Carbon Antidote Plus efficiency profiles (+30% average gains; varies slightly by configuration).</p>
+            <p class="calc-disclaimer">* Expected mileage boost based on certified Sundar Carbon Antidote Plus efficiency profiles. Oil and maintenance calculations represent lifecycle cost tracking over the specified distance.</p>
           </div>
         </div>
       </div>

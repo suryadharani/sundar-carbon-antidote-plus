@@ -543,81 +543,106 @@ document.addEventListener('DOMContentLoaded', () => {
   // GENERAL VALUE SAVINGS CALCULATOR (NeoPlatron style)
   // -------------------------------------------------------------
   let currentVehicleType = '4-wheeler';
-  let currentTimePeriod = 'monthly'; // 'monthly' or 'yearly'
   
   const vehicleBtns = document.querySelectorAll('#vehicle-type-selector .vehicle-btn');
   const calcMileage = document.getElementById('calc-mileage');
   const calcPrice = document.getElementById('calc-price');
-  const calcDistance = document.getElementById('calc-distance');
-  
-  const btnMonthly = document.getElementById('btn-monthly');
-  const btnYearly = document.getElementById('btn-yearly');
+  const calculationBasisTitle = document.getElementById('calculation-basis-title');
   
   const outFuelBefore = document.getElementById('out-fuel-before');
   const outFuelAfter = document.getElementById('out-fuel-after');
   const outFuelSavedOutput = document.getElementById('out-fuel-saved');
   
-  const outMoneyBefore = document.getElementById('out-money-before');
-  const outMoneyAfter = document.getElementById('out-money-after');
-  const outMoneySavedOutput = document.getElementById('out-money-saved');
+  const outOilBefore = document.getElementById('out-oil-before');
+  const outOilAfter = document.getElementById('out-oil-after');
+  const outOilSavedOutput = document.getElementById('out-oil-saved');
+  
+  const outMaintBefore = document.getElementById('out-maint-before');
+  const outMaintAfter = document.getElementById('out-maint-after');
+  const outMaintSavedOutput = document.getElementById('out-maint-saved');
+  
+  const outTotalBefore = document.getElementById('out-total-before');
+  const outTotalAfter = document.getElementById('out-total-after');
+  const outTotalSavings = document.getElementById('out-total-savings');
   
   const outMileageBefore = document.getElementById('out-mileage-before');
   const outMileageAfter = document.getElementById('out-mileage-after');
   const outMileageGain = document.getElementById('out-mileage-gain');
 
-  // Efficiency boost profile based on vehicle type
-  const efficiencyProfiles = {
-    '2-wheeler': 1.35, // +35% boost
-    '3-wheeler': 1.30, // +30% boost
-    '4-wheeler': 1.30, // +30% boost
-    '6-wheeler': 1.25  // +25% boost
-  };
-
-  const defaultMileages = {
-    '2-wheeler': 45,
-    '3-wheeler': 25,
-    '4-wheeler': 15,
-    '6-wheeler': 6
+  // Parameters configuration per vehicle type
+  const vehicleConfig = {
+    '2-wheeler': { distance: 15000, multiplier: 1.35, defaultMileage: 45, oilIntervalStandard: 3000, oilIntervalAntidote: 15000, oilUnitCost: 500, maintBefore: 5000, maintAfter: 1500 },
+    '3-wheeler': { distance: 15000, multiplier: 1.30, defaultMileage: 25, oilIntervalStandard: 3000, oilIntervalAntidote: 15000, oilUnitCost: 600, maintBefore: 8000, maintAfter: 2400 },
+    '4-wheeler': { distance: 100000, multiplier: 1.30, defaultMileage: 15, oilIntervalStandard: 10000, oilIntervalAntidote: 50000, oilUnitCost: 3000, maintBefore: 25000, maintAfter: 7500 },
+    '6-wheeler': { distance: 100000, multiplier: 1.25, defaultMileage: 6, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 8000, maintBefore: 80000, maintAfter: 24000 },
+    '10-wheeler': { distance: 100000, multiplier: 1.25, defaultMileage: 4, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 12000, maintBefore: 120000, maintAfter: 36000 },
+    '14-wheeler': { distance: 100000, multiplier: 1.25, defaultMileage: 3, oilIntervalStandard: 15000, oilIntervalAntidote: 75000, oilUnitCost: 16000, maintBefore: 160000, maintAfter: 48000 }
   };
 
   function updateVehicleDefaultMileage(type) {
-    if (defaultMileages[type]) {
-      calcMileage.value = defaultMileages[type];
+    if (vehicleConfig[type]) {
+      calcMileage.value = vehicleConfig[type].defaultMileage;
     }
   }
 
   function runCalculations() {
-    const mileageBefore = parseFloat(calcMileage.value) || 15;
+    const config = vehicleConfig[currentVehicleType] || vehicleConfig['4-wheeler'];
+    const mileageBefore = parseFloat(calcMileage.value) || config.defaultMileage;
     const pricePerLiter = parseFloat(calcPrice.value) || 100;
-    const dailyDistance = parseFloat(calcDistance.value) || 50;
     
-    // Choose boost based on vehicle type
-    const multiplier = efficiencyProfiles[currentVehicleType] || 1.30;
-    const mileageAfter = mileageBefore * multiplier;
+    // Choose boost and distance based on vehicle type config
+    const distance = config.distance;
+    const mileageAfter = mileageBefore * config.multiplier;
     const mileageDiff = mileageAfter - mileageBefore;
     
-    // Days in period
-    const days = currentTimePeriod === 'monthly' ? 30 : 365;
-    const totalDistance = dailyDistance * days;
+    // Fuel Cost Calculations
+    const fuelBeforeLiters = distance / mileageBefore;
+    const fuelAfterLiters = distance / mileageAfter;
+    const fuelBeforeCost = fuelBeforeLiters * pricePerLiter;
+    const fuelAfterCost = fuelAfterLiters * pricePerLiter;
+    const fuelSavedCost = fuelBeforeCost - fuelAfterCost;
     
-    // Calculations
-    const fuelBefore = totalDistance / mileageBefore;
-    const fuelAfter = totalDistance / mileageAfter;
-    const fuelSaved = fuelBefore - fuelAfter;
+    // Engine Oil Cost Calculations
+    const oilChangesBefore = distance / config.oilIntervalStandard;
+    const oilChangesAfter = distance / config.oilIntervalAntidote;
+    const oilCostBefore = oilChangesBefore * config.oilUnitCost;
+    const oilCostAfter = oilChangesAfter * config.oilUnitCost;
+    const oilSavedCost = oilCostBefore - oilCostAfter;
     
-    const moneyBefore = fuelBefore * pricePerLiter;
-    const moneyAfter = fuelAfter * pricePerLiter;
-    const moneySaved = moneyBefore - moneyAfter;
+    // Maintenance Cost Calculations
+    const maintCostBefore = config.maintBefore;
+    const maintCostAfter = config.maintAfter;
+    const maintSavedCost = maintCostBefore - maintCostAfter;
     
-    // Update DOM
-    outFuelBefore.textContent = `${fuelBefore.toFixed(2)} L`;
-    outFuelAfter.textContent = `${fuelAfter.toFixed(2)} L`;
-    outFuelSavedOutput.textContent = `${fuelSaved.toFixed(2)} L`;
+    // Totals
+    const totalCostBefore = fuelBeforeCost + oilCostBefore + maintCostBefore;
+    const totalCostAfter = fuelAfterCost + oilCostAfter + maintCostAfter;
+    const totalCostSavings = totalCostBefore - totalCostAfter;
     
-    outMoneyBefore.textContent = `₹${Math.round(moneyBefore).toLocaleString()}`;
-    outMoneyAfter.textContent = `₹${Math.round(moneyAfter).toLocaleString()}`;
-    outMoneySavedOutput.textContent = `₹${Math.round(moneySaved).toLocaleString()}`;
+    // Update DOM basis title
+    calculationBasisTitle.textContent = `Calculated for ${distance.toLocaleString()} km`;
     
+    // Update Fuel Card
+    outFuelBefore.textContent = `₹${Math.round(fuelBeforeCost).toLocaleString()}`;
+    outFuelAfter.textContent = `₹${Math.round(fuelAfterCost).toLocaleString()}`;
+    outFuelSavedOutput.textContent = `₹${Math.round(fuelSavedCost).toLocaleString()}`;
+    
+    // Update Oil Card
+    outOilBefore.textContent = `₹${Math.round(oilCostBefore).toLocaleString()}`;
+    outOilAfter.textContent = `₹${Math.round(oilCostAfter).toLocaleString()}`;
+    outOilSavedOutput.textContent = `₹${Math.round(oilSavedCost).toLocaleString()}`;
+    
+    // Update Maintenance Card
+    outMaintBefore.textContent = `₹${Math.round(maintCostBefore).toLocaleString()}`;
+    outMaintAfter.textContent = `₹${Math.round(maintCostAfter).toLocaleString()}`;
+    outMaintSavedOutput.textContent = `₹${Math.round(maintSavedCost).toLocaleString()}`;
+    
+    // Update Total Summary Card
+    outTotalBefore.textContent = `₹${Math.round(totalCostBefore).toLocaleString()}`;
+    outTotalAfter.textContent = `₹${Math.round(totalCostAfter).toLocaleString()}`;
+    outTotalSavings.textContent = `₹${Math.round(totalCostSavings).toLocaleString()}`;
+    
+    // Update Mileage Card
     outMileageBefore.textContent = mileageBefore.toFixed(2);
     outMileageAfter.textContent = mileageAfter.toFixed(2);
     outMileageGain.textContent = mileageDiff.toFixed(2);
@@ -634,24 +659,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  btnMonthly.addEventListener('click', () => {
-    btnMonthly.classList.add('active');
-    btnYearly.classList.remove('active');
-    currentTimePeriod = 'monthly';
-    runCalculations();
-  });
-
-  btnYearly.addEventListener('click', () => {
-    btnYearly.classList.add('active');
-    btnMonthly.classList.remove('active');
-    currentTimePeriod = 'yearly';
-    runCalculations();
-  });
-
   // Bind input listeners
   calcMileage.addEventListener('input', runCalculations);
   calcPrice.addEventListener('input', runCalculations);
-  calcDistance.addEventListener('input', runCalculations);
 
   // Run initial calculator compute
   runCalculations();
