@@ -153,14 +153,15 @@ def create_deck():
     bullets = [
         ("National Biofuel Policy Mandate:", " India has accelerated E20 fuel availability nationwide to reduce oil import bills, making ethanol-blended petrol standard at all pumps."),
         ("Humidity & Water Phase Separation:", " Monsoon seasons and high humidity across India cause ethanol to rapidly absorb moisture. This triggers phase separation, pooling corrosive water inside the vehicle fuel tank."),
-        ("BS4 & BS6 Injector Risk:", " Modern high-pressure fuel injectors clog quickly with gummy deposits, leading to engine knocking, lost mileage, and misfires.")
+        ("BS4 & BS6 Injector Risk:", " Modern high-pressure fuel injectors clog quickly with gummy deposits, leading to engine knocking, lost mileage, and misfires."),
+        ("Isobutanol-Diesel Transition:", " Next-generation isobutanol-diesel blends degrade standard elastomers (O-rings) and reduce fuel lubricity, accelerating wear in high-pressure diesel injector systems.")
     ]
     
     for title, text in bullets:
         p_b = tf_left.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
-        p_b.font.size = Pt(14)
+        p_b.font.size = Pt(11.5)
         p_b.font.color.rgb = ORANGE
         
         run = p_b.add_run()
@@ -171,7 +172,7 @@ def create_deck():
         run2 = p_b.add_run()
         run2.text = text
         run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(12)
+        p_b.space_after = Pt(6)
         
     add_slide_picture(slide2, "ethanol_damage.png", ORANGE)
 

@@ -153,14 +153,15 @@ def create_deck():
     bullets = [
         ("Sugarcane Mandate:", " As a major crop producer, Karnataka actively pushes ethanol fuels derived from sugarcane molasses."),
         ("Water Phase Separation:", " In humid climates like coastal Mangaluru, Udupi, and Karwar, ethanol absorbs moisture, causing water pooling at the tank bottom."),
-        ("BS4 & BS6 Clogging:", " High-pressure fuel injectors clog rapidly with deposits, leading to misfires, engine knocking, and loss of pickup on local roads.")
+        ("BS4 & BS6 Clogging:", " High-pressure fuel injectors clog rapidly with deposits, leading to misfires, engine knocking, and loss of pickup on local roads."),
+        ("Isobutanol-Diesel Transition:", " Next-generation isobutanol-diesel blends degrade standard elastomers (O-rings) and reduce fuel lubricity, accelerating wear in high-pressure diesel injector systems.")
     ]
     
     for title, text in bullets:
         p_b = tf_left.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
-        p_b.font.size = Pt(14)
+        p_b.font.size = Pt(11.5)
         p_b.font.color.rgb = ORANGE
         
         run = p_b.add_run()
@@ -171,7 +172,7 @@ def create_deck():
         run2 = p_b.add_run()
         run2.text = text
         run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(12)
+        p_b.space_after = Pt(6)
         
     add_slide_picture(slide2, "ethanol_damage.png", ORANGE)
 

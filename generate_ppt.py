@@ -144,14 +144,15 @@ def create_deck():
     bullets = [
         ("Widespread E20 Deployment:", " Ethanol-blended petrol is becoming standard across fuel pumps to comply with new emission and biofuel mandates."),
         ("Water Phase Separation:", " In warm, humid environments, ethanol rapidly absorbs moisture. This triggers phase separation, pooling corrosive water at the bottom of the fuel tank."),
-        ("BS4 & BS6 Injector Risk:", " Delicate high-pressure fuel injectors clog quickly with chemical deposits, leading to misfires, engine knocking, and loss of pickup.")
+        ("BS4 & BS6 Injector Risk:", " Delicate high-pressure fuel injectors clog quickly with chemical deposits, leading to misfires, engine knocking, and loss of pickup."),
+        ("Isobutanol-Diesel Transition:", " Next-generation isobutanol-diesel blends degrade standard elastomers (O-rings) and reduce fuel lubricity, accelerating wear in high-pressure diesel injector systems.")
     ]
     
     for title, text in bullets:
         p_b = tf_left.add_paragraph()
         p_b.text = "• "
         p_b.font.name = 'Inter'
-        p_b.font.size = Pt(14)
+        p_b.font.size = Pt(11.5)
         p_b.font.color.rgb = ORANGE
         
         run = p_b.add_run()
@@ -162,7 +163,7 @@ def create_deck():
         run2 = p_b.add_run()
         run2.text = text
         run2.font.color.rgb = MUTED
-        p_b.space_after = Pt(12)
+        p_b.space_after = Pt(6)
         
     add_slide_picture(slide2, "ethanol_damage.png", ORANGE)
 
