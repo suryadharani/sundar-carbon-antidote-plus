@@ -560,6 +560,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const outMaintBefore = document.getElementById('out-maint-before');
   const outMaintAfter = document.getElementById('out-maint-after');
   const outMaintSavedOutput = document.getElementById('out-maint-saved');
+
+  const outCo2Fuel = document.getElementById('out-co2-fuel');
+  const outCo2Reduced = document.getElementById('out-co2-reduced');
   
   const outTotalBefore = document.getElementById('out-total-before');
   const outTotalAfter = document.getElementById('out-total-after');
@@ -568,6 +571,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const outMileageBefore = document.getElementById('out-mileage-before');
   const outMileageAfter = document.getElementById('out-mileage-after');
   const outMileageGain = document.getElementById('out-mileage-gain');
+
+  const funSavingsAmount = document.getElementById('fun-savings-amount');
+  const funSavingsSuggestions = document.getElementById('fun-savings-suggestions');
+  const smartInsightText = document.getElementById('smart-insight-text');
+
+  const btnDownloadReport = document.getElementById('btn-download-report');
+  const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
 
   // Parameters configuration per vehicle type
   const vehicleConfig = {
@@ -601,6 +611,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fuelBeforeCost = fuelBeforeLiters * pricePerLiter;
     const fuelAfterCost = fuelAfterLiters * pricePerLiter;
     const fuelSavedCost = fuelBeforeCost - fuelAfterCost;
+    const litersSaved = fuelBeforeLiters - fuelAfterLiters;
     
     // Engine Oil Cost Calculations
     const oilChangesBefore = distance / config.oilIntervalStandard;
@@ -618,6 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalCostBefore = fuelBeforeCost + oilCostBefore + maintCostBefore;
     const totalCostAfter = fuelAfterCost + oilCostAfter + maintCostAfter;
     const totalCostSavings = totalCostBefore - totalCostAfter;
+    const co2Reduced = litersSaved * 2.31;
     
     // Update DOM basis title
     calculationBasisTitle.textContent = `Calculated for ${distance.toLocaleString()} km`;
@@ -636,6 +648,10 @@ document.addEventListener('DOMContentLoaded', () => {
     outMaintBefore.textContent = `₹${Math.round(maintCostBefore).toLocaleString()}`;
     outMaintAfter.textContent = `₹${Math.round(maintCostAfter).toLocaleString()}`;
     outMaintSavedOutput.textContent = `₹${Math.round(maintSavedCost).toLocaleString()}`;
+
+    // Update CO2 Card
+    outCo2Fuel.textContent = `${litersSaved.toFixed(1)} L`;
+    outCo2Reduced.textContent = `${co2Reduced.toFixed(1)} kg`;
     
     // Update Total Summary Card
     outTotalBefore.textContent = `₹${Math.round(totalCostBefore).toLocaleString()}`;
@@ -646,6 +662,32 @@ document.addEventListener('DOMContentLoaded', () => {
     outMileageBefore.textContent = mileageBefore.toFixed(2);
     outMileageAfter.textContent = mileageAfter.toFixed(2);
     outMileageGain.textContent = mileageDiff.toFixed(2);
+
+    // Update fun savings comparison list
+    const suggestions = [];
+    if (totalCostSavings < 15000) {
+      suggestions.push("🛵 One year of vehicle insurance");
+      suggestions.push("🎧 Premium wireless earbuds");
+    } else if (totalCostSavings < 35000) {
+      suggestions.push("🛵 One year of vehicle insurance");
+      suggestions.push("📺 A new Smart TV");
+    } else if (totalCostSavings < 75000) {
+      suggestions.push("📱 A new smartphone");
+      suggestions.push("📺 A new Smart TV");
+    } else {
+      suggestions.push("✈ A weekend getaway");
+      suggestions.push("📱 A premium smartphone");
+    }
+    
+    funSavingsAmount.textContent = `₹${Math.round(totalCostSavings).toLocaleString()}`;
+    funSavingsSuggestions.innerHTML = suggestions.map(s => `
+      <span style="font-size: 0.8rem; border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; background: rgba(255, 255, 255, 0.02); display: flex; align-items: center; color: var(--text-main); font-weight: 500; font-family: 'Inter';">
+        ${s}
+      </span>
+    `).join('');
+
+    // Update Smart Insight
+    smartInsightText.innerHTML = `Based on your current mileage of <strong>${mileageBefore.toFixed(1)} km/L</strong> and fuel price of <strong>₹${pricePerLiter}</strong>, your vehicle could potentially save <strong>₹${Math.round(totalCostSavings).toLocaleString()}</strong> over <strong>${distance.toLocaleString()} km</strong> while reducing fuel consumption and associated CO₂ emissions.`;
   }
 
   // Event Listeners for selectors
@@ -662,6 +704,232 @@ document.addEventListener('DOMContentLoaded', () => {
   // Bind input listeners
   calcMileage.addEventListener('input', runCalculations);
   calcPrice.addEventListener('input', runCalculations);
+
+  // WhatsApp Share Event
+  btnShareWhatsapp.addEventListener('click', () => {
+    const config = vehicleConfig[currentVehicleType] || vehicleConfig['4-wheeler'];
+    const mileageBefore = parseFloat(calcMileage.value) || config.defaultMileage;
+    const mileageAfter = mileageBefore * config.multiplier;
+    const distance = config.distance;
+    
+    const fuelBeforeLiters = distance / mileageBefore;
+    const fuelAfterLiters = distance / mileageAfter;
+    const litersSaved = fuelBeforeLiters - fuelAfterLiters;
+    
+    const pricePerLiter = parseFloat(calcPrice.value) || 100;
+    const fuelBeforeCost = fuelBeforeLiters * pricePerLiter;
+    const fuelAfterCost = fuelAfterLiters * pricePerLiter;
+    
+    const oilChangesBefore = distance / config.oilIntervalStandard;
+    const oilChangesAfter = distance / config.oilIntervalAntidote;
+    const oilCostBefore = oilChangesBefore * config.oilUnitCost;
+    const oilCostAfter = oilChangesAfter * config.oilUnitCost;
+    
+    const maintCostBefore = config.maintBefore;
+    const maintCostAfter = config.maintAfter;
+    
+    const totalCostBefore = fuelBeforeCost + oilCostBefore + maintCostBefore;
+    const totalCostAfter = fuelAfterCost + oilCostAfter + maintCostAfter;
+    const totalCostSavings = totalCostBefore - totalCostAfter;
+    const co2Reduced = litersSaved * 2.31;
+    
+    const msg = `🚗 I calculated my fuel savings using the Sundar Carbon Savings Calculator!\n\n` +
+                `• Vehicle Type: ${currentVehicleType}\n` +
+                `• Target Distance: ${distance.toLocaleString()} km\n` +
+                `• Current Mileage: ${mileageBefore.toFixed(2)} km/L\n` +
+                `• Projected Mileage: ${mileageAfter.toFixed(2)} km/L\n` +
+                `• Fuel Saved: ${litersSaved.toFixed(1)} Litres\n` +
+                `• CO₂ Emissions Reduced: ${co2Reduced.toFixed(1)} kg\n` +
+                `• Estimated Net Savings: ₹${Math.round(totalCostSavings).toLocaleString()}\n\n` +
+                `Calculate yours:\n` +
+                `https://suryadharani.github.io/sundar-carbon-antidote-plus/`;
+                
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+
+  // PDF Report Download Event
+  btnDownloadReport.addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    const config = vehicleConfig[currentVehicleType] || vehicleConfig['4-wheeler'];
+    const mileageBefore = parseFloat(calcMileage.value) || config.defaultMileage;
+    const mileageAfter = mileageBefore * config.multiplier;
+    const distance = config.distance;
+    
+    const fuelBeforeLiters = distance / mileageBefore;
+    const fuelAfterLiters = distance / mileageAfter;
+    const litersSaved = fuelBeforeLiters - fuelAfterLiters;
+    
+    const pricePerLiter = parseFloat(calcPrice.value) || 100;
+    const fuelBeforeCost = fuelBeforeLiters * pricePerLiter;
+    const fuelAfterCost = fuelAfterLiters * pricePerLiter;
+    const fuelSavedCost = fuelBeforeCost - fuelAfterCost;
+    
+    const oilChangesBefore = distance / config.oilIntervalStandard;
+    const oilChangesAfter = distance / config.oilIntervalAntidote;
+    const oilCostBefore = oilChangesBefore * config.oilUnitCost;
+    const oilCostAfter = oilChangesAfter * config.oilUnitCost;
+    const oilSavedCost = oilCostBefore - oilCostAfter;
+    
+    const maintCostBefore = config.maintBefore;
+    const maintCostAfter = config.maintAfter;
+    const maintSavedCost = maintCostBefore - maintCostAfter;
+    
+    const totalCostBefore = fuelBeforeCost + oilCostBefore + maintCostBefore;
+    const totalCostAfter = fuelAfterCost + oilCostAfter + maintCostAfter;
+    const totalCostSavings = totalCostBefore - totalCostAfter;
+    const co2Reduced = litersSaved * 2.31;
+    
+    // PDF Styles & Branding colors
+    doc.setFillColor(15, 17, 26); // Dark Theme color block header
+    doc.rect(0, 0, 210, 45, 'F');
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(0, 240, 255); // Cyan
+    doc.text("SUNDAR CARBON", 15, 20);
+    
+    doc.setFontSize(14);
+    doc.setTextColor(255, 255, 255);
+    doc.text("ANTIDOTE PLUS® + BOOSTER DOSE", 15, 28);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(170, 170, 170);
+    doc.text("Savings & Performance Certification Report", 15, 36);
+    
+    // Date & Time
+    const now = new Date();
+    doc.setTextColor(100, 100, 100);
+    doc.text(`Generated on: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 125, 36);
+    
+    // Divider
+    doc.setDrawColor(200, 200, 200);
+    doc.setLineWidth(0.5);
+    doc.line(15, 55, 195, 55);
+    
+    // Title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.setTextColor(15, 17, 26);
+    doc.text("VEHICLE EFFICIENCY REPORT", 15, 65);
+    
+    // Specifications Section
+    doc.setFontSize(12);
+    doc.text("1. Input Specifications", 15, 75);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(50, 50, 50);
+    doc.text(`• Vehicle Configuration: ${currentVehicleType}`, 20, 83);
+    doc.text(`• Current Mileage: ${mileageBefore.toFixed(2)} km/L`, 20, 90);
+    doc.text(`• Fuel Base Price: ₹${pricePerLiter} / Liter`, 20, 97);
+    doc.text(`• Analysis Baseline Distance: ${distance.toLocaleString()} km`, 20, 104);
+    
+    // Savings Table Section
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(15, 17, 26);
+    doc.text("2. Efficiency & Savings Projections", 15, 117);
+    
+    // Table Grid draw
+    doc.setDrawColor(220, 220, 220);
+    doc.setFillColor(245, 247, 250);
+    doc.rect(15, 122, 180, 55, 'F');
+    doc.rect(15, 122, 180, 55, 'S');
+    
+    doc.line(15, 132, 195, 132);
+    doc.line(15, 142, 195, 142);
+    doc.line(15, 152, 195, 152);
+    doc.line(15, 162, 195, 162);
+    doc.line(100, 122, 100, 177); // middle divider
+    doc.line(150, 122, 150, 177); // right divider
+    
+    // Table Headers
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text("Category", 18, 128);
+    doc.text("Before Treatment", 103, 128);
+    doc.text("With Antidote Plus®", 153, 128);
+    
+    doc.setFont("helvetica", "normal");
+    doc.text("Fuel Mileage", 18, 138);
+    doc.text(`${mileageBefore.toFixed(2)} km/L`, 103, 138);
+    doc.text(`${mileageAfter.toFixed(2)} km/L`, 153, 138);
+    
+    doc.text("Fuel Expenditure", 18, 148);
+    doc.text(`₹${Math.round(fuelBeforeCost).toLocaleString()}`, 103, 148);
+    doc.text(`₹${Math.round(fuelAfterCost).toLocaleString()}`, 153, 148);
+    
+    doc.text("Engine Oil Cost", 18, 158);
+    doc.text(`₹${Math.round(oilCostBefore).toLocaleString()}`, 103, 158);
+    doc.text(`₹${Math.round(oilCostAfter).toLocaleString()}`, 153, 158);
+    
+    doc.text("Maintenance Cost", 18, 168);
+    doc.text(`₹${Math.round(maintCostBefore).toLocaleString()}`, 103, 168);
+    doc.text(`₹${Math.round(maintCostAfter).toLocaleString()}`, 153, 168);
+    
+    // Bottom Total Operational Row
+    doc.setFont("helvetica", "bold");
+    doc.text("Total Operational Cost", 18, 174);
+    doc.text(`₹${Math.round(totalCostBefore).toLocaleString()}`, 103, 174);
+    doc.text(`₹${Math.round(totalCostAfter).toLocaleString()}`, 153, 174);
+    
+    // Savings Summary Panel
+    doc.setFillColor(235, 250, 240); // Soft green
+    doc.rect(15, 185, 180, 20, 'F');
+    doc.rect(15, 185, 180, 20, 'S');
+    
+    doc.setFontSize(11);
+    doc.setTextColor(40, 120, 60);
+    doc.text("NET VALUED SAVINGS:", 20, 197);
+    doc.setFontSize(14);
+    doc.text(`₹${Math.round(totalCostSavings).toLocaleString()}`, 80, 198);
+    
+    doc.setFontSize(10);
+    doc.text(`CO₂ Reduced: ${co2Reduced.toFixed(1)} kg (Saved ${litersSaved.toFixed(1)} Liters)`, 115, 197);
+    
+    // Smart Insight summary text box
+    doc.setDrawColor(200, 220, 240);
+    doc.setFillColor(240, 248, 255); // Soft blue
+    doc.rect(15, 212, 180, 25, 'F');
+    doc.rect(15, 212, 180, 25, 'S');
+    
+    doc.setTextColor(15, 17, 26);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("💡 Smart Insight:", 20, 220);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(80, 80, 80);
+    const insightLines = doc.splitTextToSize(
+      `Based on your specifications, upgrading to Sundar Carbon Antidote Plus protects your engine systems, yielding ₹${Math.round(totalCostSavings).toLocaleString()} in total economic savings and reducing CO₂ footprints by ${co2Reduced.toFixed(1)} kg over ${distance.toLocaleString()} km.`,
+      170
+    );
+    doc.text(insightLines, 20, 228);
+    
+    // Certifications block at page bottom
+    doc.setDrawColor(240, 240, 240);
+    doc.line(15, 245, 195, 245);
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(120, 120, 120);
+    doc.text("CERTIFIED & APPROVED BY:", 15, 253);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    doc.setTextColor(100, 100, 100);
+    doc.text("✔ Dubai Materials Lab Certified", 18, 262);
+    doc.text("✔ ISO 9001:2015 Quality Standards", 18, 268);
+    doc.text("✔ Telangana Pollution Control Board Approved", 100, 262);
+    doc.text("✔ Made in India - Molecular Engineering", 100, 268);
+    
+    // Save PDF
+    doc.save(`Sundar_Carbon_Savings_Report_${currentVehicleType.replace(' ', '_')}.pdf`);
+  });
 
   // Run initial calculator compute
   runCalculations();

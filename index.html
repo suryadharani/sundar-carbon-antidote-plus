@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- jsPDF Library for saving savings report -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -535,7 +537,7 @@
               Calculated for 1,00,000 km
             </div>
             
-            <div class="output-cards-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="output-cards-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
               <!-- Card 1: Fuel Expenditure -->
               <div class="output-calc-card">
                 <div class="card-header-calc">
@@ -596,8 +598,24 @@
                 </div>
               </div>
 
-              <!-- Card 4: Total Value Summary -->
-              <div class="output-calc-card card-total">
+              <!-- Card 4: CO2 Reduction -->
+              <div class="output-calc-card" style="border-color: rgba(0, 255, 102, 0.2); background: rgba(0, 255, 102, 0.02);">
+                <div class="card-header-calc">
+                  <span class="card-icon-calc">🌍</span>
+                  <h4 style="color: var(--green);">CO₂ Reduction</h4>
+                </div>
+                <div class="card-row">
+                  <span>Fuel Saved:</span>
+                  <span id="out-co2-fuel" class="muted-val">0.00 L</span>
+                </div>
+                <div class="card-row highlight-row" style="border-top: 1px solid rgba(0, 255, 102, 0.1);">
+                  <span>CO₂ Reduced:</span>
+                  <span id="out-co2-reduced" class="green-glow-text">0.00 kg</span>
+                </div>
+              </div>
+
+              <!-- Card 5: Total Value Summary -->
+              <div class="output-calc-card card-total" style="grid-column: span 2;">
                 <div class="card-header-calc">
                   <span class="card-icon-calc">💎</span>
                   <h4>Total Value Summary</h4>
@@ -618,7 +636,7 @@
             </div>
             
             <!-- Vehicle Mileage Info Card -->
-            <div class="output-calc-card full-width-card" style="grid-column: span 2;">
+            <div class="output-calc-card full-width-card" style="margin-top: 15px;">
               <div class="card-header-calc">
                 <span class="card-icon-calc">📈</span>
                 <h4>Vehicle Mileage</h4>
@@ -641,8 +659,57 @@
                 </div>
               </div>
             </div>
+
+            <!-- What Can You Do With Your Savings Card -->
+            <div class="output-calc-card full-width-card" style="margin-top: 15px; background: rgba(255, 215, 0, 0.02); border-color: rgba(255, 215, 0, 0.15);">
+              <div class="card-header-calc">
+                <span class="card-icon-calc">💰</span>
+                <h4 style="color: #ffd700;">What Can You Do With Your Savings?</h4>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; line-height: 1.4;">
+                Your savings of <strong id="fun-savings-amount" style="color: var(--green);">₹0</strong> could pay for:
+              </p>
+              <div id="fun-savings-suggestions" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                <!-- Suggestions generated programmatically -->
+              </div>
+            </div>
+
+            <!-- Smart Insight Section -->
+            <div class="smart-insight-section" style="background: rgba(0, 240, 255, 0.02); border: 1px solid rgba(0, 240, 255, 0.15); border-radius: 12px; padding: 15px; margin-top: 15px;">
+              <h4 style="color: var(--cyan); display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-family: 'Outfit'; font-size: 0.95rem; font-weight: 700;">
+                <span>💡</span> Smart Insight
+              </h4>
+              <p id="smart-insight-text" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">
+                Based on your current mileage and fuel price, your vehicle could potentially save ₹0 over 15,000 km while reducing fuel consumption and associated CO₂ emissions.
+              </p>
+              <div class="recommendations" style="display: flex; gap: 15px; font-size: 0.8rem; font-weight: bold; color: var(--text-main);">
+                <span style="color: var(--green);">✔ Sundar Carbon AntidotPlus</span>
+                <span style="color: var(--cyan);">✔ Booster Dose</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons Section -->
+            <div class="calc-actions-row" style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+              <button class="btn btn-primary" id="btn-download-report" style="flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; padding: 12px;">
+                <span>📄</span> Download Savings Report
+              </button>
+              <button class="btn btn-secondary" id="btn-share-whatsapp" style="flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 8px; border-color: #25d366; color: #25d366; font-size: 0.85rem; padding: 12px; background: rgba(37, 211, 102, 0.03);">
+                <span>📲</span> Share on WhatsApp
+              </button>
+            </div>
             
-            <p class="calc-disclaimer">* Expected mileage boost based on certified Sundar Carbon Antidote Plus efficiency profiles. Oil and maintenance calculations represent lifecycle cost tracking over the specified distance.</p>
+            <p class="calc-disclaimer" style="margin-top: 15px;">* Expected mileage boost based on certified Sundar Carbon Antidote Plus efficiency profiles. Oil and maintenance calculations represent lifecycle cost tracking over the specified distance.</p>
+          </div>
+        </div>
+
+        <!-- Trusted & Certified Strip -->
+        <div class="certification-strip" style="margin-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%;">
+          <h4 style="font-family: 'Outfit'; font-size: 0.85rem; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">🏆 Trusted & Certified</h4>
+          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; align-items: center; opacity: 0.8;">
+            <div class="badge-item" style="font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; background: rgba(255,255,255,0.01); color: var(--text-main); font-weight: 500;">🔬 Dubai Materials Lab Certified</div>
+            <div class="badge-item" style="font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; background: rgba(255,255,255,0.01); color: var(--text-main); font-weight: 500;">✓ ISO Certified</div>
+            <div class="badge-item" style="font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; background: rgba(255,255,255,0.01); color: var(--text-main); font-weight: 500;">🌱 Telangana PCB Certified</div>
+            <div class="badge-item" style="font-size: 0.72rem; border: 1px solid rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; background: rgba(255,255,255,0.01); color: var(--text-main); font-weight: 500;">🇮🇳 Made in India</div>
           </div>
         </div>
       </div>
