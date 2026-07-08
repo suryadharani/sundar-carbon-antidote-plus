@@ -30,7 +30,7 @@ def create_deck():
         fill.fore_color.rgb = BG_COLOR
 
     def add_logo(slide):
-        logo_path = os.path.join("images", "logo.jpg")
+        logo_path = os.path.join("images", "logo_transparent.png")
         if os.path.exists(logo_path):
             # Place the Sundar Innovations logo at the top-right corner
             slide.shapes.add_picture(logo_path, Inches(11.0), Inches(0.4), width=Inches(1.6), height=Inches(0.65))
@@ -69,8 +69,10 @@ def create_deck():
         shape.line.color.rgb = border_color
         shape.line.width = Pt(1.5)
         
-        # Overlay the picture inside the frame with padding
-        img_path = os.path.join("images", img_name)
+        # Overlay the rounded picture inside the frame with padding
+        base_name = os.path.splitext(img_name)[0]
+        rounded_img_name = f"{base_name}_rounded.png"
+        img_path = os.path.join("images", rounded_img_name)
         if os.path.exists(img_path):
             slide.shapes.add_picture(img_path, Inches(7.6), Inches(1.9), width=Inches(4.8), height=Inches(4.3))
 
