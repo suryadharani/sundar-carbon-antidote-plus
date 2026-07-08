@@ -608,9 +608,14 @@
                   <span>Fuel Saved:</span>
                   <span id="out-co2-fuel" class="muted-val">0.00 L</span>
                 </div>
-                <div class="card-row highlight-row" style="border-top: 1px solid rgba(0, 255, 102, 0.1);">
+                <div class="card-row">
                   <span>CO₂ Reduced:</span>
                   <span id="out-co2-reduced" class="green-glow-text">0.00 kg</span>
+                </div>
+                <div class="card-row highlight-row" style="border-top: 1px solid rgba(0, 255, 102, 0.1); flex-direction: column; align-items: flex-start; gap: 4px;">
+                  <span style="font-size: 0.72rem; color: var(--text-muted);">Equivalent to:</span>
+                  <span id="out-co2-trees" style="color: var(--green); font-size: 0.8rem; font-weight: bold;">🌳 Planting 0 Trees</span>
+                  <span id="out-co2-ev" style="color: var(--cyan); font-size: 0.8rem; font-weight: bold;">🚗 Driving 0 km EV</span>
                 </div>
               </div>
 

@@ -563,6 +563,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const outCo2Fuel = document.getElementById('out-co2-fuel');
   const outCo2Reduced = document.getElementById('out-co2-reduced');
+  const outCo2Trees = document.getElementById('out-co2-trees');
+  const outCo2Ev = document.getElementById('out-co2-ev');
   
   const outTotalBefore = document.getElementById('out-total-before');
   const outTotalAfter = document.getElementById('out-total-after');
@@ -652,6 +654,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update CO2 Card
     outCo2Fuel.textContent = `${litersSaved.toFixed(1)} L`;
     outCo2Reduced.textContent = `${co2Reduced.toFixed(1)} kg`;
+    
+    const treesEquivalent = Math.round(co2Reduced / 22);
+    const evEquivalent = Math.round(co2Reduced / 0.162);
+    outCo2Trees.textContent = `🌳 Planting ${treesEquivalent.toLocaleString()} Trees`;
+    outCo2Ev.textContent = `🚗 Driving ${evEquivalent.toLocaleString()} km EV`;
     
     // Update Total Summary Card
     outTotalBefore.textContent = `₹${Math.round(totalCostBefore).toLocaleString()}`;
@@ -887,8 +894,12 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setFontSize(14);
     doc.text(`₹${Math.round(totalCostSavings).toLocaleString()}`, 80, 198);
     
-    doc.setFontSize(10);
-    doc.text(`CO₂ Reduced: ${co2Reduced.toFixed(1)} kg (Saved ${litersSaved.toFixed(1)} Liters)`, 115, 197);
+    doc.setFontSize(8.5);
+    doc.text(`CO₂ Reduced: ${co2Reduced.toFixed(1)} kg (Saved ${litersSaved.toFixed(1)} L)`, 115, 193);
+    const pdfTrees = Math.round(co2Reduced / 22);
+    const pdfEv = Math.round(co2Reduced / 0.162);
+    doc.text(`🌳 Planting ${pdfTrees.toLocaleString()} Trees`, 115, 198);
+    doc.text(`🚗 Driving ${pdfEv.toLocaleString()} km EV`, 115, 203);
     
     // Smart Insight summary text box
     doc.setDrawColor(200, 220, 240);
