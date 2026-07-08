@@ -89,6 +89,8 @@ def main():
     GREEN = (0, 255, 102, 255)
     
     tasks = [
+        ("energy_transition_challenge.png", ORANGE),
+        ("infrastructure_protection.png", CYAN),
         ("ethanol_damage.png", ORANGE),
         ("molecular_shield.png", CYAN),
         ("performance_surge.png", GREEN),
