@@ -796,7 +796,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     doc.setFontSize(14);
     doc.setTextColor(255, 255, 255);
-    doc.text("ANTIDOTE PLUS® + BOOSTER DOSE", 15, 28);
+    doc.text("ANTIDOTE PLUS + BOOSTER DOSE", 15, 28);
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -826,10 +826,10 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(50, 50, 50);
-    doc.text(`• Vehicle Configuration: ${currentVehicleType}`, 20, 83);
-    doc.text(`• Current Mileage: ${mileageBefore.toFixed(2)} km/L`, 20, 90);
-    doc.text(`• Fuel Base Price: ₹${pricePerLiter} / Liter`, 20, 97);
-    doc.text(`• Analysis Baseline Distance: ${distance.toLocaleString()} km`, 20, 104);
+    doc.text(`- Vehicle Configuration: ${currentVehicleType}`, 20, 83);
+    doc.text(`- Current Mileage: ${mileageBefore.toFixed(2)} km/L`, 20, 90);
+    doc.text(`- Fuel Base Price: Rs. ${pricePerLiter} / Liter`, 20, 97);
+    doc.text(`- Analysis Baseline Distance: ${distance.toLocaleString()} km`, 20, 104);
     
     // Savings Table Section
     doc.setFont("helvetica", "bold");
@@ -855,7 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setFontSize(9);
     doc.text("Category", 18, 128);
     doc.text("Before Treatment", 103, 128);
-    doc.text("With Antidote Plus®", 153, 128);
+    doc.text("With Antidote Plus", 153, 128);
     
     doc.setFont("helvetica", "normal");
     doc.text("Fuel Mileage", 18, 138);
@@ -863,22 +863,22 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.text(`${mileageAfter.toFixed(2)} km/L`, 153, 138);
     
     doc.text("Fuel Expenditure", 18, 148);
-    doc.text(`₹${Math.round(fuelBeforeCost).toLocaleString()}`, 103, 148);
-    doc.text(`₹${Math.round(fuelAfterCost).toLocaleString()}`, 153, 148);
+    doc.text(`Rs. ${Math.round(fuelBeforeCost).toLocaleString()}`, 103, 148);
+    doc.text(`Rs. ${Math.round(fuelAfterCost).toLocaleString()}`, 153, 148);
     
     doc.text("Engine Oil Cost", 18, 158);
-    doc.text(`₹${Math.round(oilCostBefore).toLocaleString()}`, 103, 158);
-    doc.text(`₹${Math.round(oilCostAfter).toLocaleString()}`, 153, 158);
+    doc.text(`Rs. ${Math.round(oilCostBefore).toLocaleString()}`, 103, 158);
+    doc.text(`Rs. ${Math.round(oilCostAfter).toLocaleString()}`, 153, 158);
     
     doc.text("Maintenance Cost", 18, 168);
-    doc.text(`₹${Math.round(maintCostBefore).toLocaleString()}`, 103, 168);
-    doc.text(`₹${Math.round(maintCostAfter).toLocaleString()}`, 153, 168);
+    doc.text(`Rs. ${Math.round(maintCostBefore).toLocaleString()}`, 103, 168);
+    doc.text(`Rs. ${Math.round(maintCostAfter).toLocaleString()}`, 153, 168);
     
     // Bottom Total Operational Row
     doc.setFont("helvetica", "bold");
     doc.text("Total Operational Cost", 18, 174);
-    doc.text(`₹${Math.round(totalCostBefore).toLocaleString()}`, 103, 174);
-    doc.text(`₹${Math.round(totalCostAfter).toLocaleString()}`, 153, 174);
+    doc.text(`Rs. ${Math.round(totalCostBefore).toLocaleString()}`, 103, 174);
+    doc.text(`Rs. ${Math.round(totalCostAfter).toLocaleString()}`, 153, 174);
     
     // Savings Summary Panel
     doc.setFillColor(235, 250, 240); // Soft green
@@ -889,12 +889,12 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setTextColor(40, 120, 60);
     doc.text("NET VALUED SAVINGS:", 20, 197);
     doc.setFontSize(14);
-    doc.text(`₹${Math.round(totalCostSavings).toLocaleString()}`, 80, 198);
+    doc.text(`Rs. ${Math.round(totalCostSavings).toLocaleString()}`, 80, 198);
     
     doc.setFontSize(9.5);
-    doc.text(`CO₂ Reduced: ${co2Reduced.toFixed(1)} kg (Saved ${litersSaved.toFixed(1)} L)`, 115, 193);
+    doc.text(`CO2 Reduced: ${co2Reduced.toFixed(1)} kg (Saved ${litersSaved.toFixed(1)} L)`, 115, 193);
     const pdfTrees = Math.round(co2Reduced / 22);
-    doc.text(`🌳 Planting ${pdfTrees.toLocaleString()} Trees`, 115, 200);
+    doc.text(`Equivalent to planting ${pdfTrees.toLocaleString()} Trees`, 115, 200);
     
     // Smart Insight summary text box
     doc.setDrawColor(200, 220, 240);
@@ -905,13 +905,13 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setTextColor(15, 17, 26);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
-    doc.text("💡 Smart Insight:", 20, 220);
+    doc.text("Smart Insight:", 20, 220);
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(80, 80, 80);
     const insightLines = doc.splitTextToSize(
-      `Based on your specifications, upgrading to Sundar Carbon Antidote Plus protects your engine systems, yielding ₹${Math.round(totalCostSavings).toLocaleString()} in total economic savings and reducing CO₂ footprints by ${co2Reduced.toFixed(1)} kg over ${distance.toLocaleString()} km.`,
+      `Based on your specifications, upgrading to Sundar Carbon Antidote Plus protects your engine systems, yielding Rs. ${Math.round(totalCostSavings).toLocaleString()} in total economic savings and reducing CO2 footprints by ${co2Reduced.toFixed(1)} kg over ${distance.toLocaleString()} km.`,
       170
     );
     doc.text(insightLines, 20, 228);
@@ -928,10 +928,10 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
     doc.setTextColor(100, 100, 100);
-    doc.text("✔ Dubai Materials Lab Certified", 18, 262);
-    doc.text("✔ ISO 9001:2015 Quality Standards", 18, 268);
-    doc.text("✔ Telangana Pollution Control Board Approved", 100, 262);
-    doc.text("✔ Made in India - Molecular Engineering", 100, 268);
+    doc.text("- Dubai Materials Lab Certified", 18, 262);
+    doc.text("- ISO 9001:2015 Quality Standards", 18, 268);
+    doc.text("- Telangana Pollution Control Board Approved", 100, 262);
+    doc.text("- Made in India - Molecular Engineering", 100, 268);
     
     // Save PDF
     doc.save(`Sundar_Carbon_Savings_Report_${currentVehicleType.replace(' ', '_')}.pdf`);
