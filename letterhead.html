@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sundar Innovations - Official Letterhead Template</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS Variables for Brand Alignment */
+    :root {
+      --brand-dark: #07080d;
+      --brand-cyan: #00f0ff;
+      --brand-green: #00ff66;
+      --brand-orange: #ff8800;
+      --text-main: #2d313f;
+      --text-muted: #6e7582;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --a4-width: 210mm;
+      --a4-height: 297mm;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Floating Controller Bar */
+    .control-bar {
+      width: var(--a4-width);
+      background: rgba(15, 17, 26, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px 25px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+
+    .control-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    .control-logo span {
+      color: var(--brand-green);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand-green), #00c853);
+      color: #07080d;
+      box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 255, 102, 0.45);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* A4 Page Container */
+    .letterhead-page {
+      background: #ffffff;
+      width: var(--a4-width);
+      height: var(--a4-height);
+      padding: 25mm 20mm 20mm 20mm;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* Background Watermark */
+    .watermark {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      width: 320px;
+      height: 320px;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Header Section */
+    .letter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 18px;
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand-logo-svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .company-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--brand-dark);
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+    }
+
+    .company-tagline {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .contact-block {
+      text-align: right;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .contact-block a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-block a:hover {
+      text-decoration: underline;
+    }
+
+    /* Decorative Colored Accent Bar in Header */
+    .accent-bar {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(to right, var(--brand-cyan), var(--brand-green));
+    }
+
+    /* Main Letter Body Section */
+    .letter-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Meta Details Row */
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      margin-bottom: 25px;
+    }
+
+    .meta-item {
+      outline: none;
+      border-bottom: 1px dashed transparent;
+      transition: border-color 0.2s;
+    }
+
+    .meta-item:focus {
+      border-bottom-color: var(--brand-cyan);
+    }
+
+    /* Addressee Section */
+    .addressee-block {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      outline: none;
+      border-bottom: 1px dashed transparent;
+    }
+
+    .addressee-block:focus {
+      border-bottom-color: var(--brand-cyan);
+    }
+
+    /* Subject line */
+    .subject-block {
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      outline: none;
+      border-bottom: 1px dashed transparent;
+    }
+
+    .subject-block:focus {
+      border-bottom-color: var(--brand-cyan);
+    }
+
+    /* Letter Main Text */
+    .text-content {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      text-align: justify;
+      outline: none;
+      flex: 1;
+      border-bottom: 1px dashed transparent;
+    }
+
+    .text-content p {
+      margin-bottom: 15px;
+    }
+
+    .text-content:focus {
+      border-bottom-color: var(--brand-cyan);
+    }
+
+    /* Signatory / Closing Block */
+    .closing-block {
+      margin-top: 35px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      outline: none;
+      width: 250px;
+      border-bottom: 1px dashed transparent;
+    }
+
+    .closing-block:focus {
+      border-bottom-color: var(--brand-cyan);
+    }
+
+    .signature-space {
+      height: 45px;
+    }
+
+    /* Footer Section */
+    .letter-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 15px;
+      margin-top: 20px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .footer-address {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .footer-address strong {
+      color: var(--text-main);
+    }
+
+    /* Trust & Certified Badges in Footer */
+    .footer-badges {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      align-items: center;
+      opacity: 0.7;
+    }
+
+    .badge-item {
+      font-size: 0.58rem;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #fafafa;
+      color: var(--text-main);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .badge-item svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    /* Editable Outline Hints for User UI (Not Printed) */
+    .edit-hint {
+      position: absolute;
+      top: -20px;
+      right: 0;
+      font-size: 0.65rem;
+      background: var(--brand-cyan);
+      color: #07080d;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    
+    [contenteditable="true"]:hover {
+      background: rgba(0, 240, 255, 0.015);
+      cursor: text;
+    }
+
+    /* Print styling rules */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .control-bar {
+        display: none !important;
+      }
+      .letterhead-page {
+        box-shadow: none !important;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+      [contenteditable="true"] {
+        border-bottom: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Controller Bar (Hidden in prints) -->
+  <div class="control-bar">
+    <div class="control-logo">
+      <svg viewBox="0 0 100 100" class="brand-logo-svg" style="width: 24px; height: 24px; fill: none; stroke: var(--brand-green); stroke-width: 6;">
+        <circle cx="50" cy="50" r="40" />
+        <path d="M 50,15 C 35,40 65,60 50,85" stroke-dasharray="2 2"/>
+        <path d="M 35,30 C 50,45 50,55 65,70"/>
+        <circle cx="50" cy="30" r="5" fill="var(--brand-cyan)" stroke="none"/>
+        <circle cx="50" cy="70" r="5" fill="var(--brand-green)" stroke="none"/>
+      </svg>
+      SUNDAR <span>INNOVATIONS</span>
+    </div>
+    
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="loadTemplate('notice')">📢 Official Notice</button>
+      <button class="btn btn-secondary" onclick="loadTemplate('quotation')">💼 Quotation</button>
+      <button class="btn btn-secondary" onclick="loadTemplate('auth')">🔑 Authorization</button>
+      <button class="btn btn-primary" onclick="window.print()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"/>
+        </svg>
+        Print / Save PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- A4 Printable Sheet Page -->
+  <div class="letterhead-page" id="printable-area">
+    
+    <!-- Large faint watermark rotated 15deg -->
+    <svg viewBox="0 0 100 100" class="watermark">
+      <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="5"/>
+      <path d="M 50,15 C 32,38 68,62 50,85" stroke="currentColor" stroke-width="4" stroke-dasharray="3 3"/>
+      <path d="M 32,32 C 50,50 50,58 68,76" stroke="currentColor" stroke-width="4"/>
+      <circle cx="50" cy="32" r="7" fill="currentColor"/>
+      <circle cx="50" cy="74" r="7" fill="currentColor"/>
+    </svg>
+
+    <!-- Header Section -->
+    <div class="letter-header">
+      <div class="brand-block">
+        <!-- Logo Vector Abstraction -->
+        <svg viewBox="0 0 100 100" class="brand-logo-svg">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="var(--brand-dark)" stroke-width="8"/>
+          <path d="M 50,15 C 32,38 68,62 50,85" fill="none" stroke="var(--brand-cyan)" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 32,32 C 50,50 50,58 68,76" fill="none" stroke="var(--brand-green)" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="50" cy="32" r="5" fill="var(--brand-cyan)" stroke="none"/>
+          <circle cx="50" cy="74" r="5" fill="var(--brand-green)" stroke="none"/>
+        </svg>
+        <div class="brand-title">
+          <span class="company-name">SUNDAR INNOVATIONS</span>
+          <span class="company-tagline">Clean Energy & Molecular Optimization</span>
+        </div>
+      </div>
+      
+      <div class="contact-block">
+        <p><strong>Hotline:</strong> +91 94928 28882</p>
+        <p><strong>Email:</strong> <a href="mailto:info@sundarinnovations.com">info@sundarinnovations.com</a></p>
+        <p><strong>Web:</strong> <a href="https://www.sundarinnovations.com" target="_blank">www.sundarinnovations.com</a></p>
+      </div>
+      <div class="accent-bar"></div>
+    </div>
+
+    <!-- Letter Body (Editable text boxes) -->
+    <div class="letter-body">
+      
+      <!-- Date & Reference metadata row -->
+      <div class="meta-row">
+        <div class="meta-item" contenteditable="true" id="letter-ref"><strong>Ref No:</strong> SI/CAD/2026/042</div>
+        <div class="meta-item" contenteditable="true" id="letter-date"><strong>Date:</strong> July 9, 2026</div>
+      </div>
+
+      <!-- Addressee Block -->
+      <div class="addressee-block" contenteditable="true" id="letter-to">
+        <strong>To,</strong><br>
+        The Chief Engineer (Operational Fleets),<br>
+        Public Transit Infrastructure Department,<br>
+        Hyderabad, Telangana - 500022
+      </div>
+
+      <!-- Subject Block -->
+      <div class="subject-block" contenteditable="true" id="letter-subject">
+        <strong>Subject:</strong> Proposal for large-scale adoption of Carbon Antidote Plus® fuel treatment
+      </div>
+
+      <!-- Main body text content -->
+      <div class="text-content" contenteditable="true" id="letter-text">
+        <p>Dear Sir/Madam,</p>
+        <p>We are writing to officially present our locally developed fuel conditioning catalyst technology, <strong>Sundar Carbon Antidote Plus®</strong>, engineered to optimize energy conversion and mitigate issues associated with mandatory ethanol-blended fuels (up to E20).</p>
+        <p>Our recent efficiency audits demonstrate a consistent 30% boost in overall fuel efficiency alongside a substantial 5x extension of engine oil lifetime (extending intervals standard 10,000 km to 50,000 km). This reduction in fuel consumption, combined with less frequent oil changes, translates to significant cost savings for high-pressure fuel injectors and public transport budgets, all without requiring engine modifications.</p>
+        <p>We would appreciate the opportunity to deploy test modules on your heavy fleet vehicles (6-wheeler and above) to certify these performance improvements under standard operating cycles. Thank you for your time and consideration.</p>
+      </div>
+
+      <!-- Signature block -->
+      <div class="closing-block" contenteditable="true" id="letter-closing">
+        Sincerely,<br>
+        <strong>For Sundar Innovations Private Limited</strong>
+        <div class="signature-space"></div>
+        <strong>Authorized Signatory</strong><br>
+        Director - Commercial Operations
+      </div>
+
+    </div>
+
+    <!-- Footer Section -->
+    <div class="letter-footer">
+      <div class="footer-address">
+        <strong>Sundar Innovations Private Limited</strong> | Registered Office: H.No. 4-48, Science Tech Park, Gachibowli, Hyderabad, TS, India - 500032<br>
+        CIN: U74999TG2026PTC184820 | ISO 9001:2015 Quality Certified | Support: +91 94928 28882
+      </div>
+      
+      <!-- Certification Logos strip in Footer -->
+      <div class="footer-badges">
+        <div class="badge-item">
+          <svg viewBox="0 0 100 100" style="fill: none; stroke: var(--brand-green); stroke-width: 8;">
+            <path d="M 30,50 A 20,20 0 1,1 70,50 A 15,15 0 1,0 30,50 Z" fill="var(--brand-green)" opacity="0.2"/>
+            <path d="M 30,50 A 20,20 0 1,1 70,50 A 15,15 0 1,0 30,50 Z"/>
+            <path d="M 20,80 C 40,70 60,90 80,80"/>
+            <polygon points="50,15 53,24 62,24 55,30 57,39 50,33 43,39 45,30 38,24 47,24" fill="var(--brand-green)"/>
+          </svg>
+          <span>Dubai Materials Lab</span>
+        </div>
+        <div class="badge-item">
+          <svg viewBox="0 0 100 100" style="fill: none; stroke: var(--brand-cyan); stroke-width: 8;">
+            <circle cx="50" cy="50" r="40" stroke-dasharray="6 4" />
+            <circle cx="50" cy="50" r="28" />
+            <path d="M 50,10 L 50,90 M 10,50 L 90,50" />
+            <text x="50" y="55" font-family="'Outfit'" font-weight="900" font-size="16" fill="var(--brand-cyan)" text-anchor="middle" stroke="none">ISO</text>
+          </svg>
+          <span>ISO 9001:2015</span>
+        </div>
+        <div class="badge-item">
+          <svg viewBox="0 0 100 100" style="fill: none; stroke: var(--brand-orange); stroke-width: 7;">
+            <circle cx="50" cy="50" r="42" />
+            <path d="M 32,70 L 32,50 A 18,18 0 0,1 68,50 L 68,70" />
+            <path d="M 38,70 L 38,52 A 12,12 0 0,1 62,52 L 62,70" />
+            <circle cx="50" cy="50" r="5" fill="var(--brand-orange)"/>
+          </svg>
+          <span>Telangana PCB Approved</span>
+        </div>
+        <div class="badge-item">
+          <svg viewBox="0 0 100 100" style="fill: none; stroke: #333; stroke-width: 7;">
+            <path d="M 20,40 C 30,30 45,30 55,35 C 65,30 80,35 85,50 C 90,65 80,80 65,80 L 25,80 Z" fill="rgba(0,0,0,0.05)"/>
+            <circle cx="45" cy="55" r="14" stroke-dasharray="8 6" stroke-width="4" />
+            <circle cx="45" cy="55" r="8" />
+            <path d="M 55,35 L 60,25 M 65,38 L 75,30"/>
+          </svg>
+          <span>Made In India</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Templates Database for instant switching
+    const templates = {
+      notice: {
+        subject: "<strong>Subject:</strong> Public Notice: Availability of Authorized molecular fuel conditioners",
+        to: "<strong>To,</strong><br>All Industrial Distributors, Authorized Fleet Operators, and Registered Retail partners.",
+        text: "<p>This is an official notice certifying that Sundar Innovations Private Limited has officially appointed authorized distribution outlets for the supply of <strong>Sundar Carbon Antidote Plus®</strong> and <strong>Booster Dose</strong> engine treatments.</p><p>Please note that any authentic product carries our trademark logo and an anti-counterfeit QR code label. Do not purchase packages with damaged seals. You can report suspect items directly to our consumer hotline.</p>",
+        closing: "Best Regards,<br><strong>Sundar Innovations Private Limited</strong><br><div class='signature-space'></div><strong>Operational Integrity Unit</strong>"
+      },
+      quotation: {
+        subject: "<strong>Subject:</strong> Cost Quotation for Antidote Plus bulk fleet treatment modules",
+        to: "<strong>To,</strong><br>Procurement & Logistics Manager,<br>Transit Heavy Transports Ltd,<br>Bengaluru, Karnataka - 560001",
+        text: "<p>Dear Sir,</p><p>Following our technical alignment meeting, we are pleased to provide our commercial quotation for the bulk supply of <strong>Sundar Carbon Antidote Plus®</strong> fuel catalyst treatments:</p><p>1. <strong>Antidote Plus Bulk Treatment Pack (100L treat cap):</strong> Rs. 15,000 / Unit<br>2. <strong>Booster Dose Auxiliary Packs (Case of 24):</strong> Rs. 6,000 / Case<br>3. <strong>On-Site Technical Induction & Analysis:</strong> Complimentary</p><p>Pricing excludes local GST. Deliveries will be fulfilled within 5 working days from official Purchase Order receipt. Quoted prices remain active for 30 days.</p>",
+        closing: "Sincerely,<br><strong>Commercial Sales Division</strong><br><div class='signature-space'></div><strong>Sundar Innovations Private Limited</strong>"
+      },
+      auth: {
+        subject: "<strong>Subject:</strong> official Letter of Authorization - Fleet Emission trials",
+        to: "<strong>To,</strong><br>The Director,<br>State Pollution Control Board Testing Facility,<br>Hyderabad, Telangana",
+        text: "<p>This letter officially serves as authorization for our technical representatives to operate exhaust testing machinery and record data during the fleet verification trials of <strong>Sundar Carbon Antidote Plus®</strong>.</p><p>Authorized representatives: Mr. R. Krishna (Lead Analyst) and Mr. S. Srinivas (Field Engineer). They are cleared to collect pre-treatment baseline emissions and post-catalytic outcomes for submission to the PCB Board.</p>",
+        closing: "Approved By,<br><strong>Sundar Innovations Private Limited</strong><br><div class='signature-space'></div><strong>Technical Director</strong><br>Research & Development Wing"
+      }
+    };
+
+    function loadTemplate(key) {
+      if (templates[key]) {
+        document.getElementById('letter-subject').innerHTML = templates[key].subject;
+        document.getElementById('letter-to').innerHTML = templates[key].to;
+        document.getElementById('letter-text').innerHTML = templates[key].text;
+        document.getElementById('letter-closing').innerHTML = templates[key].closing;
+        
+        // Update Ref No
+        const randomRef = Math.floor(100 + Math.random() * 900);
+        document.getElementById('letter-ref').innerHTML = `<strong>Ref No:</strong> SI/CAD/2026/${randomRef}`;
+      }
+    }
+  </script>
+</body>
+</html>
